@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>動画編集代行・SNS運用代行 | mono.create</title>
+<meta name="description" content="マーケター視点でバズる動画を設計。ショート動画編集¥3,000〜、最短当日納品。月10本〜の丸投げパック¥40,000〜。">
+<meta property="og:title" content="動画編集代行・SNS運用代行 | mono.create">
+<meta property="og:description" content="マーケター視点の動画設計 × チームの迅速納品。ショート動画編集¥3,000〜。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #04080F;
+  color: #E8EDF5;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+/* ── CSS Variables ── */
+:root {
+  --bg:        #04080F;
+  --bg2:       #0B1220;
+  --bg3:       #111C2E;
+  --accent:    #2563EB;
+  --accent-lt: #3B82F6;
+  --glow:      rgba(37,99,235,0.25);
+  --gold:      #F59E0B;
+  --green:     #10B981;
+  --text:      #E8EDF5;
+  --sub:       #94A3B8;
+  --border:    rgba(255,255,255,0.07);
+  --card:      rgba(255,255,255,0.04);
+  --radius:    12px;
+}
+
+/* ── Utilities ── */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+.section { padding: 96px 0; }
+.section-sm { padding: 64px 0; }
+.label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-lt);
+  background: var(--glow);
+  border: 1px solid rgba(59,130,246,0.3);
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.section-title {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+.section-sub {
+  color: var(--sub);
+  font-size: 1rem;
+  max-width: 600px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  border: none;
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 24px var(--glow);
+}
+.btn-primary:hover { background: var(--accent-lt); transform: translateY(-2px); box-shadow: 0 8px 32px var(--glow); }
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.25);
+}
+.btn-outline:hover { border-color: var(--accent-lt); color: var(--accent-lt); }
+.btn-gold {
+  background: var(--gold);
+  color: #1a0a00;
+  font-weight: 800;
+}
+.btn-gold:hover { background: #FBBF24; transform: translateY(-2px); }
+.tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 4px;
+  background: var(--bg3);
+  color: var(--sub);
+  border: 1px solid var(--border);
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(4,8,15,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { font-weight: 900; font-size: 1.1rem; letter-spacing: 0.03em; }
+.nav-logo span { color: var(--accent-lt); }
+.nav-links { display: flex; gap: 24px; align-items: center; }
+.nav-links a { font-size: 0.85rem; color: var(--sub); transition: color 0.2s; }
+.nav-links a:hover { color: #fff; }
+@media (max-width: 640px) { .nav-links { display: none; } }
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 120px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 60% at 70% 40%, rgba(37,99,235,0.15) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 70%, rgba(99,37,235,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+  width: 100%;
+}
+@media (max-width: 768px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+.hero-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-lt);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block; width: 32px; height: 2px;
+  background: var(--accent-lt);
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--accent-lt);
+  display: block;
+}
+.hero-desc {
+  color: var(--sub);
+  font-size: 1rem;
+  margin-bottom: 36px;
+  line-height: 1.9;
+}
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-badges {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-top: 32px;
+}
+.hero-badge {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.8rem; color: var(--sub);
+}
+.hero-badge svg { color: var(--green); flex-shrink: 0; }
+.hero-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px;
+  position: relative;
+}
+.hero-card-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--sub);
+  margin-bottom: 20px;
+}
+.hero-stat {
+  display: flex; flex-direction: column;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  gap: 4px;
+}
+.hero-stat:last-child { border-bottom: none; }
+.hero-stat-value { font-size: 1.8rem; font-weight: 900; color: #fff; letter-spacing: -0.03em; }
+.hero-stat-value span { font-size: 1rem; font-weight: 500; color: var(--sub); }
+.hero-stat-label { font-size: 0.8rem; color: var(--sub); }
+
+/* ── Marquee ── */
+.marquee-wrap {
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+  padding: 14px 0;
+}
+.marquee {
+  display: flex; gap: 64px;
+  white-space: nowrap;
+  animation: marquee 20s linear infinite;
+}
+.marquee-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.8rem; font-weight: 700; color: var(--sub);
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.marquee-dot { color: var(--accent-lt); }
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Problems ── */
+.problems { background: var(--bg2); }
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 48px;
+}
+.problem-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.problem-icon {
+  width: 44px; height: 44px;
+  background: rgba(239,68,68,0.12);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+}
+.problem-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+.problem-card p { font-size: 0.85rem; color: var(--sub); line-height: 1.7; }
+
+/* ── Services ── */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.service-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.service-card:hover { border-color: rgba(59,130,246,0.4); transform: translateY(-4px); }
+.service-icon {
+  width: 52px; height: 52px;
+  background: var(--glow);
+  border: 1px solid rgba(59,130,246,0.25);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+.service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+.service-card p { font-size: 0.85rem; color: var(--sub); line-height: 1.75; }
+.service-badge {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 0.7rem; font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(59,130,246,0.12);
+  color: var(--accent-lt);
+}
+
+/* ── Strengths ── */
+.strengths { background: var(--bg2); }
+.strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 64px;
+}
+@media (max-width: 640px) { .strengths-grid { grid-template-columns: 1fr; } }
+.strength-item { text-align: center; }
+.strength-num {
+  font-size: 3.5rem; font-weight: 900;
+  color: var(--accent-lt);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 8px;
+  font-family: 'Inter', sans-serif;
+}
+.strength-num span { font-size: 1.4rem; color: var(--sub); }
+.strength-label { font-size: 0.9rem; color: var(--sub); line-height: 1.6; }
+
+/* ── Works ── */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.work-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.work-card:hover { border-color: rgba(59,130,246,0.4); transform: translateY(-4px); }
+.work-thumb {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.work-thumb-inner {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--bg3) 0%, var(--bg2) 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+}
+.play-btn {
+  width: 56px; height: 56px;
+  background: rgba(37,99,235,0.9);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s, background 0.2s;
+}
+.work-card:hover .play-btn { transform: scale(1.1); background: var(--accent-lt); }
+.play-btn svg { margin-left: 4px; }
+.work-type-badge {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em;
+  padding: 4px 10px; border-radius: 4px;
+  background: rgba(0,0,0,0.5); color: #fff;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.work-body { padding: 20px 24px; }
+.work-genre { font-size: 0.72rem; color: var(--sub); margin-bottom: 6px; letter-spacing: 0.04em; }
+.work-title { font-size: 0.95rem; font-weight: 700; }
+.work-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 12px;
+  font-size: 0.8rem; color: var(--accent-lt);
+  transition: gap 0.2s;
+}
+.work-card:hover .work-link { gap: 10px; }
+
+/* ── Pricing ── */
+.pricing { background: var(--bg2); }
+.pricing-tabs {
+  display: flex; gap: 8px;
+  margin-bottom: 40px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 6px;
+  width: fit-content;
+}
+.ptab {
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-size: 0.85rem; font-weight: 700;
+  cursor: pointer;
+  border: none; background: none; color: var(--sub);
+  transition: all 0.2s;
+}
+.ptab.active { background: var(--accent); color: #fff; }
+
+.pricing-single, .pricing-option, .pricing-packs { display: none; }
+.pricing-single.active, .pricing-option.active, .pricing-packs.active { display: block; }
+
+/* Single pricing */
+.pricing-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 28px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+.pricing-row:hover { border-color: rgba(59,130,246,0.3); }
+.pricing-row-name { font-weight: 700; font-size: 1rem; }
+.pricing-row-desc { font-size: 0.82rem; color: var(--sub); margin-top: 4px; }
+.pricing-row--group { cursor: pointer; flex-wrap: wrap; }
+.pricing-tag {
+  font-size: 0.68rem; font-weight: 600; color: var(--sub);
+  background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+  border-radius: 20px; padding: 2px 9px;
+}
+.longform-toggle-hint {
+  margin-left: 8px; font-size: 0.75rem; color: var(--accent-lt);
+  transition: opacity 0.2s;
+}
+.longform-detail {
+  display: none; margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.longform-detail.open { display: block; }
+.longform-table { width: 100%; border-collapse: collapse; }
+.longform-table tr { border-bottom: 1px solid var(--border); }
+.longform-table tr:last-child { border-bottom: none; }
+.longform-table td { padding: 8px 4px; font-size: 0.83rem; color: var(--sub); }
+.longform-price { text-align: right; font-weight: 700; color: #E8EDF5; white-space: nowrap; }
+.pricing-price { font-size: 1.2rem; font-weight: 900; color: var(--gold); white-space: nowrap; font-family: 'Inter', sans-serif; }
+
+/* Pack pricing */
+.pack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.pack-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.pack-card:hover { border-color: rgba(59,130,246,0.4); transform: translateY(-4px); }
+.pack-card.featured {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(37,99,235,0.08), var(--bg3));
+}
+.pack-badge {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--accent); color: #fff;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+  padding: 5px 16px; border-radius: 20px; white-space: nowrap;
+}
+.pack-name { font-size: 0.75rem; font-weight: 700; color: var(--sub); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+.pack-title { font-size: 1.2rem; font-weight: 900; margin-bottom: 4px; }
+.pack-volume { font-size: 0.85rem; color: var(--sub); margin-bottom: 24px; }
+.pack-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+.pack-price { font-size: 2.2rem; font-weight: 900; color: var(--gold); font-family: 'Inter', sans-serif; letter-spacing: -0.04em; }
+.pack-price-label { font-size: 0.85rem; color: var(--sub); }
+.pack-original {
+  text-decoration: line-through;
+  font-size: 0.82rem; color: var(--sub);
+  margin-bottom: 8px;
+}
+.pack-saving {
+  display: inline-block;
+  font-size: 0.75rem; font-weight: 700;
+  color: var(--green); background: rgba(16,185,129,0.12);
+  padding: 3px 10px; border-radius: 4px;
+  margin-bottom: 24px;
+}
+.pack-features { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 10px; }
+.pack-features li { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--sub); }
+.pack-features li svg { color: var(--green); flex-shrink: 0; }
+.pack-note { font-size: 0.72rem; color: var(--sub); line-height: 1.6; margin-top: 12px; }
+
+/* ── Flow ── */
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0;
+  margin-top: 56px;
+  position: relative;
+}
+.flow-step {
+  padding: 32px 28px;
+  position: relative;
+}
+.flow-step::before {
+  content: '';
+  position: absolute; top: 48px; right: 0; left: auto;
+  width: 1px; height: calc(100% - 96px);
+  background: var(--border);
+}
+.flow-step:last-child::before { display: none; }
+.flow-num {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+  color: var(--accent-lt); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.flow-num::after { content: ''; flex: 1; height: 1px; background: rgba(59,130,246,0.2); }
+.flow-step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+.flow-step p { font-size: 0.83rem; color: var(--sub); line-height: 1.75; }
+.flow-step--payment { background: rgba(59,130,246,0.05); border: 1px solid rgba(59,130,246,0.2); border-radius: 12px; }
+.badge-prepay {
+  display: inline-block; font-size: 0.65rem; font-weight: 700;
+  background: linear-gradient(135deg, #F59E0B, #EF4444);
+  color: #fff; padding: 2px 8px; border-radius: 20px;
+  letter-spacing: 0.05em; vertical-align: middle; margin-left: 6px;
+}
+.flow-pay-link {
+  display: inline-block; margin-top: 12px;
+  font-size: 0.78rem; font-weight: 600; color: var(--accent-lt);
+  border: 1px solid rgba(59,130,246,0.4); border-radius: 6px;
+  padding: 6px 14px; transition: all 0.2s;
+}
+.flow-pay-link:hover { background: rgba(59,130,246,0.1); }
+.prepay-notice {
+  margin-top: 48px; display: flex; align-items: flex-start; gap: 16px;
+  background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 12px; padding: 24px 28px;
+}
+.prepay-notice__icon { font-size: 1.8rem; flex-shrink: 0; }
+.prepay-notice__title { font-size: 0.9rem; font-weight: 700; color: #F59E0B; margin-bottom: 6px; }
+.prepay-notice__body { font-size: 0.82rem; color: var(--sub); line-height: 1.75; }
+
+/* ── FAQ ── */
+.faq-list { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; max-width: 760px; }
+.faq-item {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.faq-q {
+  padding: 20px 24px;
+  font-weight: 700; font-size: 0.95rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  user-select: none;
+  transition: color 0.2s;
+}
+.faq-q:hover { color: var(--accent-lt); }
+.faq-icon { width: 22px; height: 22px; flex-shrink: 0; color: var(--accent-lt); transition: transform 0.25s; }
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s;
+  padding: 0 24px;
+  font-size: 0.88rem; color: var(--sub); line-height: 1.85;
+}
+.faq-item.open .faq-a { max-height: 300px; padding: 0 24px 20px; }
+
+/* ── Contact ── */
+.contact { background: var(--bg2); }
+.contact-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 64px;
+  align-items: start;
+  margin-top: 56px;
+}
+@media (max-width: 768px) { .contact-wrap { grid-template-columns: 1fr; gap: 40px; } }
+.contact-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
+.contact-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  margin-bottom: 20px;
+}
+.contact-item-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: var(--glow);
+  border: 1px solid rgba(59,130,246,0.2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+}
+.contact-item-body { font-size: 0.88rem; line-height: 1.7; }
+.contact-item-label { font-weight: 700; color: #fff; font-size: 0.82rem; margin-bottom: 2px; }
+.contact-item-val { color: var(--sub); }
+.contact-cw-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-top: 24px;
+  background: #00B900;
+  color: #fff; font-weight: 700; font-size: 0.88rem;
+  padding: 12px 24px; border-radius: 50px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.contact-cw-btn:hover { opacity: 0.85; transform: translateY(-2px); }
+.contact-cw-id-box {
+  margin-top: 20px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.contact-cw-id-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+  color: var(--sub); text-transform: uppercase; margin-bottom: 6px;
+}
+.contact-cw-id-value {
+  font-size: 1.1rem; font-weight: 700; color: #E8EDF5;
+  letter-spacing: 0.03em; margin-bottom: 14px;
+  font-family: 'Inter', monospace;
+}
+.contact-cw-copy-btn {
+  display: block; width: 100%;
+  padding: 10px 16px;
+  background: #00B900; color: #fff;
+  font-weight: 700; font-size: 0.83rem;
+  border: none; border-radius: 8px; cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  font-family: 'Noto Sans JP', sans-serif;
+  margin-bottom: 10px;
+}
+.contact-cw-copy-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+.contact-cw-copy-btn.copied { background: #059669; }
+.contact-cw-id-hint {
+  font-size: 0.75rem; color: var(--sub); line-height: 1.6;
+}
+
+/* Form */
+.form-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px;
+}
+.form-row { margin-bottom: 20px; }
+.form-row label { display: block; font-size: 0.82rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.form-row label span { color: #EF4444; margin-left: 4px; }
+.form-control {
+  width: 100%;
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  padding: 12px 16px;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.form-control:focus { border-color: var(--accent); }
+.form-control::placeholder { color: rgba(148,163,184,0.5); }
+select.form-control { cursor: pointer; }
+textarea.form-control { resize: vertical; min-height: 120px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
+.form-submit {
+  width: 100%;
+  padding: 16px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1rem; font-weight: 700;
+  border: none; border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.25s;
+  font-family: 'Noto Sans JP', sans-serif;
+  margin-top: 8px;
+  box-shadow: 0 4px 24px var(--glow);
+}
+.form-submit:hover { background: var(--accent-lt); transform: translateY(-2px); }
+.form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.form-note { font-size: 0.75rem; color: var(--sub); margin-top: 12px; text-align: center; line-height: 1.7; }
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 48px 24px;
+}
+.form-success.visible { display: block; }
+.form-success-icon { font-size: 3rem; margin-bottom: 16px; }
+.form-success h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+.form-success p { font-size: 0.88rem; color: var(--sub); }
+
+/* ── Footer ── */
+footer {
+  padding: 48px 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.footer-logo { font-weight: 900; font-size: 1.1rem; margin-bottom: 16px; }
+.footer-logo span { color: var(--accent-lt); }
+.footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+.footer-links a { font-size: 0.82rem; color: var(--sub); transition: color 0.2s; }
+.footer-links a:hover { color: #fff; }
+.footer-copy { font-size: 0.75rem; color: rgba(148,163,184,0.5); }
+
+/* ── Scroll animation ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Floating CTA ── */
+.floating-cta {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 14px 22px;
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(37,99,235,0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+}
+.floating-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(37,99,235,0.55);
+}
+@media (max-width: 600px) {
+  .floating-cta {
+    bottom: 16px;
+    right: 16px;
+    padding: 12px 18px;
+    font-size: 0.8rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="nav-logo">mono<span>.</span>create</div>
+  <div class="nav-links">
+    <a href="#services">サービス</a>
+    <a href="#works">実績</a>
+    <a href="#pricing">料金</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="btn btn-primary" style="padding:9px 22px;font-size:0.82rem;">無料相談する</a>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <p class="hero-eyebrow">VIDEO EDITING &amp; SNS MARKETING</p>
+      <h1>
+        編集を外注して<br>
+        <em>運用に全集中。</em>
+      </h1>
+      <p class="hero-desc">
+        プロのフリーランスチームが最短当日で仕上げます。<br>
+        編集から運用代行まで、丸ごとお任せください。
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          無料相談する
+        </a>
+        <a href="#works" class="btn btn-outline">実績を見る</a>
+      </div>
+      <div class="hero-badges">
+        <span class="hero-badge">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          最短当日納品
+        </span>
+        <span class="hero-badge">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          修正3回無料
+        </span>
+        <span class="hero-badge">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          チーム体制
+        </span>
+      </div>
+    </div>
+
+    <div class="hero-card fade-up">
+      <p class="hero-card-label">SERVICE OVERVIEW</p>
+      <div class="hero-stat">
+        <p class="hero-stat-value">¥4,000 <span>〜 / 1本</span></p>
+        <p class="hero-stat-label">ショート動画編集（縦型）</p>
+      </div>
+      <div class="hero-stat">
+        <p class="hero-stat-value">当日 <span>〜3日</span></p>
+        <p class="hero-stat-label">納品スピード（最短当日）</p>
+      </div>
+      <div class="hero-stat">
+        <p class="hero-stat-value">¥49,800 <span>〜 / 月</span></p>
+        <p class="hero-stat-label">丸投げパック（10本 / 月）</p>
+      </div>
+      <div class="hero-stat">
+        <p class="hero-stat-value">3<span>回</span></p>
+        <p class="hero-stat-label">修正無料回数（4回目〜¥500）</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Marquee ── -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span class="marquee-item"><span class="marquee-dot">◆</span> ビジネス系</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> エンタメ系</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> 美容・医療系</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> ナイト業界</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> スポーツ解説</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> SNS広告</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> 縦型ショート動画</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> ショート動画</span>
+    <!-- 繰り返し -->
+    <span class="marquee-item"><span class="marquee-dot">◆</span> ビジネス系</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> エンタメ系</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> 美容・医療系</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> ナイト業界</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> スポーツ解説</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> SNS広告</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> 縦型ショート動画</span>
+    <span class="marquee-item"><span class="marquee-dot">◆</span> ショート動画</span>
+  </div>
+</div>
+
+<!-- ── Problems ── -->
+<section class="section problems" id="about">
+  <div class="container">
+    <p class="label">PROBLEM</p>
+    <h2 class="section-title fade-up">こんな悩み抱えていませんか？</h2>
+    <div class="problem-grid">
+      <div class="problem-card fade-up">
+        <div class="problem-icon">⏱</div>
+        <h3>編集が追いつかない</h3>
+        <p>撮影はできるのに、編集に時間を取られて投稿頻度が落ちている。</p>
+      </div>
+      <div class="problem-card fade-up">
+        <div class="problem-icon">📉</div>
+        <h3>クオリティが上がらない</h3>
+        <p>再生数が伸び悩んでいるけど、<br>編集をどう改善すればいいかわからない。</p>
+      </div>
+      <div class="problem-card fade-up">
+        <div class="problem-icon">🤯</div>
+        <h3>運用の手が回らない</h3>
+        <p>編集・投稿・分析まで一人でやるのが限界で、本業に集中できない。</p>
+      </div>
+      <div class="problem-card fade-up">
+        <div class="problem-icon">💸</div>
+        <h3>外注したが期待外れだった</h3>
+        <p>フリーランスに依頼したが、<br>マーケ視点がなく言われた通りにしか動いてくれなかった。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Services ── -->
+<section class="section" id="services">
+  <div class="container">
+    <p class="label">SERVICES</p>
+    <h2 class="section-title fade-up">提供サービス</h2>
+    <p class="section-sub fade-up">編集単体から運用丸投げまで、ビジネスフェーズに合わせて選べます。</p>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon">📱</div>
+        <h3>SNS縦型動画編集</h3>
+        <p>Instagram・TikTok・YouTube ShortsなどのSNS縦型ショート動画を制作。<br>テロップ・SE・BGM・エフェクトまで対応。</p>
+        <span class="service-badge">¥4,000〜 / 1本</span>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🎯</div>
+        <h3>編集ディレクション・外注管理</h3>
+        <p>アカウントの編集者管理・品質チェック・納品管理をまるごと代行。<br>チームの編集品質を統一します。</p>
+        <span class="service-badge">要相談</span>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">📊</div>
+        <h3>編集コンサルティング</h3>
+        <p>アカウント分析・市場調査をもとに、バズる動画の設計方針を提案。<br>再生数改善に直結する具体的アドバイス。</p>
+        <span class="service-badge">¥5,000 / 1時間</span>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">👥</div>
+        <h3>編集者派遣</h3>
+        <p>即戦力の動画編集者をチームに追加。<br>採用・育成コストをゼロにしながら、すぐに生産力を上げられます。</p>
+        <span class="service-badge">¥2,500〜 / 本</span>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon">🚀</div>
+        <h3>SNS運用代行（北海道のみ対応）</h3>
+        <p>企画から撮影、編集、分析まで全て代行。</p>
+        <span class="service-badge">¥69,800〜 / 月</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Strengths ── -->
+<section class="section strengths">
+  <div class="container">
+    <p class="label">WHY mono.create</p>
+    <h2 class="section-title fade-up">3つの強み</h2>
+    <div class="strengths-grid">
+      <div class="strength-item fade-up">
+        <div class="strength-num">01</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px;">マーケター視点の編集設計</h3>
+        <p class="strength-label">「視聴維持率」「コンバージョン」を意識した動画構成。<br>バズるだけでなく、ビジネス成果に直結する編集を提供します。</p>
+      </div>
+      <div class="strength-item fade-up">
+        <div class="strength-num">02</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px;">チームによる迅速納品</h3>
+        <p class="strength-label">プロのフリーランス人材が多数所属しているため、依頼が増えてもキャパオーバーしません。<br>ご依頼の内容に合わせて、安定した品質と納期を実現します。</p>
+      </div>
+      <div class="strength-item fade-up">
+        <div class="strength-num">03</div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:10px;">制作→運用まで一気通貫</h3>
+        <p class="strength-label">編集単体だけでなく、投稿代行・SNS運用代行・アカウント分析・コンサルまで対応。<br>「丸投げ」できるパートナーです。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Works ── -->
+<section class="section" id="works">
+  <div class="container">
+    <p class="label">WORKS</p>
+    <h2 class="section-title fade-up">制作実績</h2>
+    <p class="section-sub fade-up">ビジネス系からエンタメ系まで、採用や集客を目的にした多様なジャンルに対応しております。</p>
+
+    <!-- ポートフォリオ動的エリア -->
+    <div id="portfolio-short-wrap">
+      <p style="font-size:0.8rem;color:var(--sub);margin:24px 0 8px;font-weight:700;">── ショート動画</p>
+      <div class="works-grid" id="portfolio-short">
+        <p style="color:var(--sub);font-size:0.85rem;padding:16px 0;" id="portfolio-loading">読み込み中...</p>
+      </div>
+    </div>
+    <div id="portfolio-long-wrap" style="display:none;">
+      <p style="font-size:0.8rem;color:var(--sub);margin:40px 0 8px;font-weight:700;">── 長尺動画</p>
+      <div class="works-grid" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))" id="portfolio-long"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Pricing ── -->
+<section class="section pricing" id="pricing">
+  <div class="container">
+    <p class="label">PRICING</p>
+    <h2 class="section-title fade-up">料金プラン</h2>
+    <p class="section-sub fade-up">記載は最低料金です。詳細はお問い合わせください。</p>
+
+    <div style="margin-top:40px;">
+      <div class="pricing-tabs">
+        <button class="ptab active" onclick="switchTab('single',this)">単品</button>
+        <button class="ptab" onclick="switchTab('option',this)">オプション</button>
+        <button class="ptab" onclick="switchTab('packs',this)">セットプラン</button>
+      </div>
+
+      <!-- Single -->
+      <div class="pricing-single active" id="tab-single">
+        <div class="pricing-row fade-up">
+          <div>
+            <p class="pricing-row-name">ショート動画編集</p>
+            <p class="pricing-row-desc">縦型1本。テロップ・SE・BGM・エフェクト込み。最短当日〜3日納品。</p>
+          </div>
+          <p class="pricing-price">¥4,000〜</p>
+        </div>
+        <div class="pricing-row pricing-row--group fade-up" onclick="toggleLongform(this)">
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <p class="pricing-row-name">長尺動画編集</p>
+              <span class="pricing-tag">YouTube・セミナー等</span>
+            </div>
+            <p class="pricing-row-desc">納品5〜7日。動画の長さによって料金が変わります。<span class="longform-toggle-hint">▼ 詳細を見る</span></p>
+            <div class="longform-detail">
+              <table class="longform-table">
+                <tr><td>〜10分</td><td class="longform-price">¥10,000</td></tr>
+                <tr><td>10〜15分</td><td class="longform-price">¥15,000</td></tr>
+                <tr><td>15〜20分</td><td class="longform-price">¥20,000</td></tr>
+                <tr><td>20分〜</td><td class="longform-price">¥20,000 + ¥1,200/分</td></tr>
+              </table>
+            </div>
+          </div>
+          <p class="pricing-price" style="white-space:nowrap;">¥10,000〜</p>
+        </div>
+        <div class="pricing-row fade-up">
+          <div>
+            <p class="pricing-row-name">編集コンサルティング</p>
+            <p class="pricing-row-desc">1時間のオンライン相談。アカウント分析→改善提案。</p>
+          </div>
+          <p class="pricing-price">¥5,000 / h</p>
+        </div>
+        <div class="pricing-row fade-up">
+          <div>
+            <p class="pricing-row-name">編集マニュアル作成</p>
+            <p class="pricing-row-desc">即外注可能なマニュアルを編集者目線で作成。</p>
+          </div>
+          <p class="pricing-price">¥5,000〜</p>
+        </div>
+        <p style="font-size:0.8rem;color:var(--sub);margin-top:20px;padding:0 8px;">※ 修正3回まで無料。4回目以降¥500/回。こちら側のミスは無制限対応。</p>
+      </div>
+
+      <!-- Option -->
+      <div class="pricing-option" id="tab-option">
+        <div class="pricing-row fade-up">
+          <div>
+            <p class="pricing-row-name">当日納品</p>
+            <p class="pricing-row-desc">12:00までのご依頼に限り、当日中に仕上げます。<br>場合によってはお受けできない場合もございますので、ご了承ください。</p>
+          </div>
+          <p class="pricing-price">+¥2,000</p>
+        </div>
+        <div class="pricing-row fade-up">
+          <div>
+            <p class="pricing-row-name">アカウント分析</p>
+            <p class="pricing-row-desc">アカウントの分析結果を成果物に落とし込みます。</p>
+          </div>
+          <p class="pricing-price">¥5,000</p>
+        </div>
+        <div class="pricing-row fade-up">
+          <div>
+            <p class="pricing-row-name">市場分析</p>
+            <p class="pricing-row-desc">トレンド・参入業界の勝ち筋を分析。</p>
+          </div>
+          <p class="pricing-price">¥5,000</p>
+        </div>
+        <div class="pricing-row fade-up">
+          <div>
+            <p class="pricing-row-name">投稿代行</p>
+            <p class="pricing-row-desc">Instagram / YouTube / TikTokへの投稿業務を代行。</p>
+          </div>
+          <p class="pricing-price">¥1,000 / 本</p>
+        </div>
+      </div>
+
+      <!-- Packs -->
+      <div class="pricing-packs" id="tab-packs">
+
+        <!-- 丸投げパック -->
+        <p style="font-size:0.9rem;font-weight:700;margin-bottom:20px;color:var(--sub);">── 丸投げパック（ショート動画編集のみ）</p>
+        <div class="pack-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));margin-bottom:48px;">
+          <div class="pack-card fade-up">
+            <p class="pack-name">10本パック</p>
+            <p class="pack-title">ショート動画編集</p>
+            <p class="pack-volume">10本 / 月</p>
+            <div class="pack-price-row">
+              <p class="pack-price">¥49,800</p>
+              <p class="pack-price-label">/ 月</p>
+            </div>
+            <ul class="pack-features">
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ショート動画編集 × 10本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
+            </ul>
+            <a href="YOUR_STRIPE_LINK_PACK10_EDIT" class="btn btn-gold" style="width:100%;justify-content:center;">今すぐ申し込む →</a>
+            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+          </div>
+          <div class="pack-card featured fade-up">
+            <span class="pack-badge">人気 No.1</span>
+            <p class="pack-name">15本パック</p>
+            <p class="pack-title">ショート動画編集</p>
+            <p class="pack-volume">15本 / 月</p>
+            <div class="pack-price-row">
+              <p class="pack-price">¥69,800</p>
+              <p class="pack-price-label">/ 月</p>
+            </div>
+            <ul class="pack-features">
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ショート動画編集 × 15本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
+            </ul>
+            <a href="YOUR_STRIPE_LINK_PACK15_EDIT" class="btn btn-gold" style="width:100%;justify-content:center;">今すぐ申し込む →</a>
+            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+          </div>
+          <div class="pack-card fade-up">
+            <p class="pack-name">30本パック</p>
+            <p class="pack-title">ショート動画編集</p>
+            <p class="pack-volume">30本 / 月</p>
+            <div class="pack-price-row">
+              <p class="pack-price">¥129,800</p>
+              <p class="pack-price-label">/ 月</p>
+            </div>
+            <ul class="pack-features">
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ショート動画編集 × 30本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
+            </ul>
+            <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
+            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+          </div>
+        </div>
+
+        <!-- SNS全対応パック -->
+        <p style="font-size:0.9rem;font-weight:700;margin-bottom:20px;color:var(--sub);">── SNS全対応パック（ショート動画 + 投稿代行）</p>
+        <div class="pack-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));margin-bottom:48px;">
+          <div class="pack-card fade-up">
+            <p class="pack-name">8本投稿パック</p>
+            <p class="pack-title">ショート動画 + 投稿代行</p>
+            <p class="pack-volume">8本 / 月</p>
+            <div class="pack-price-row">
+              <p class="pack-price">¥69,800</p>
+              <p class="pack-price-label">/ 月</p>
+            </div>
+            <ul class="pack-features">
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ショート動画編集 × 8本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>投稿代行 × 8本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
+            </ul>
+            <a href="YOUR_STRIPE_LINK_PACK10_FULL" class="btn btn-gold" style="width:100%;justify-content:center;">今すぐ申し込む →</a>
+            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+          </div>
+          <div class="pack-card fade-up">
+            <p class="pack-name">10本投稿パック</p>
+            <p class="pack-title">ショート動画 + 投稿代行</p>
+            <p class="pack-volume">10本 / 月</p>
+            <div class="pack-price-row">
+              <p class="pack-price">¥45,000</p>
+              <p class="pack-price-label">/ 月</p>
+            </div>
+            <ul class="pack-features">
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ショート動画編集 × 10本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>投稿代行 × 10本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
+            </ul>
+            <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
+            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+          </div>
+          <div class="pack-card featured fade-up">
+            <span class="pack-badge">お得</span>
+            <p class="pack-name">15本投稿パック</p>
+            <p class="pack-title">ショート動画 + 投稿代行</p>
+            <p class="pack-volume">15本 / 月</p>
+            <div class="pack-price-row">
+              <p class="pack-price">¥75,000</p>
+              <p class="pack-price-label">/ 月</p>
+            </div>
+            <ul class="pack-features">
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ショート動画編集 × 15本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>投稿代行 × 15本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
+            </ul>
+            <a href="YOUR_STRIPE_LINK_PACK15_FULL" class="btn btn-gold" style="width:100%;justify-content:center;">今すぐ申し込む →</a>
+            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+          </div>
+          <div class="pack-card fade-up">
+            <p class="pack-name">30本投稿パック</p>
+            <p class="pack-title">ショート動画 + 投稿代行</p>
+            <p class="pack-volume">30本 / 月</p>
+            <div class="pack-price-row">
+              <p class="pack-price">¥150,000</p>
+              <p class="pack-price-label">/ 月</p>
+            </div>
+            <ul class="pack-features">
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ショート動画編集 × 30本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>投稿代行 × 30本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
+            </ul>
+            <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
+            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+          </div>
+        </div>
+
+        <!-- ショート × YouTube長尺パック -->
+        <p style="font-size:0.9rem;font-weight:700;margin-bottom:8px;color:var(--sub);">── ショート動画 × YouTube長尺 混合パック</p>
+        <p style="font-size:0.85rem;color:var(--sub);margin-bottom:20px;line-height:1.6;">SNS運用代行になります。企画・撮影・編集・分析すべて含まれる。</p>
+        <div class="pack-grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));margin-bottom:48px;">
+          <div class="pack-card fade-up">
+            <p class="pack-name">スタンダードパック</p>
+            <p class="pack-title">ショート + YouTube長尺</p>
+            <div class="pack-price-row">
+              <p class="pack-price">¥150,000</p>
+              <p class="pack-price-label">/ 月</p>
+            </div>
+            <ul class="pack-features">
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ショート動画投稿 × 8本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>YouTube長尺投稿 × 4本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
+            </ul>
+            <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
+            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+          </div>
+          <div class="pack-card featured fade-up">
+            <span class="pack-badge">おすすめ</span>
+            <p class="pack-name">プレミアムパック</p>
+            <p class="pack-title">ショート + YouTube長尺</p>
+            <div class="pack-price-row">
+              <p class="pack-price">¥180,000</p>
+              <p class="pack-price-label">/ 月</p>
+            </div>
+            <ul class="pack-features">
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ショート動画投稿 × 15本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>YouTube長尺投稿 × 4本</li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
+            </ul>
+            <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
+            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+          </div>
+        </div>
+
+        <div style="margin-top:8px;padding:20px 24px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);">
+          <p style="font-size:0.85rem;color:var(--sub);line-height:1.8;">
+            💬 希望のセットプランがあればカスタム対応します。本数・内容・ご予算はお気軽にご相談ください。<br>
+            ※ 継続の場合は毎月更新手続きが必要です。月末までに通達がない場合は、自動で更新されます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Flow ── -->
+<section class="section" id="flow">
+  <div class="container">
+    <p class="label">FLOW</p>
+    <h2 class="section-title fade-up">ご依頼の流れ</h2>
+    <p class="section-sub fade-up">お問い合わせから作業開始まで最短3日。<br>シンプルなやり取りで完結します。</p>
+    <div class="flow-steps">
+      <div class="flow-step fade-up">
+        <p class="flow-num">STEP 01</p>
+        <h3>無料相談・お問い合わせ</h3>
+        <p>目的・ご予算・参考動画をフォームからお送りください。<br>Chatworkにてご連絡します。</p>
+        <a href="#contact" class="flow-pay-link" style="margin-top:10px;">↓ お問い合わせフォームへ</a>
+      </div>
+      <div class="flow-step fade-up">
+        <p class="flow-num">STEP 02</p>
+        <h3>ヒアリング</h3>
+        <p>ご要望・ターゲット・納品形式・本数などを詳しくお伺いします。<br>ご不明点はこの段階で全て解決します。</p>
+      </div>
+      <div class="flow-step fade-up">
+        <p class="flow-num">STEP 03</p>
+        <h3>契約書送付・ご契約</h3>
+        <p>業務委託契約書をデジタルにて送付します。<br>内容をご確認・ご署名いただき、契約を締結します。</p>
+      </div>
+      <div class="flow-step fade-up flow-step--payment">
+        <p class="flow-num">STEP 04</p>
+        <h3>お支払い <span class="badge-prepay">先払い</span></h3>
+        <p>契約締結後、<strong style="color:#E8EDF5;">銀行振込にてお支払いをお願いします。</strong><br>入金確認後に作業を開始します。</p>
+        <a href="payment.html" class="flow-pay-link" target="_blank">振込先・お支払い方法を確認 →</a>
+      </div>
+      <div class="flow-step fade-up">
+        <p class="flow-num">STEP 05</p>
+        <h3>素材共有・作業開始</h3>
+        <p>入金確認後、動画素材・音声・台本・必須要素などを共有フォルダでお送りください。</p>
+      </div>
+      <div class="flow-step fade-up">
+        <p class="flow-num">STEP 06</p>
+        <h3>修正対応・納品</h3>
+        <p>3回まで無料修正対応。<br>ご指定の形式でお渡しします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="section" id="faq">
+  <div class="container">
+    <p class="label">FAQ</p>
+    <h2 class="section-title fade-up">よくある質問</h2>
+    <div class="faq-list">
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>対応できるジャンルを教えてください。</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-a">ビジネス系・エンタメ系・美容医療系・ナイト業界・スポーツ解説・SNS広告など幅広く対応しています。まずはお気軽にご相談ください。</div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>急ぎの案件は対応できますか？</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-a">12:00までにご依頼いただいた場合、当日中に納品する「当日納品オプション（+¥2,000）」があります。お急ぎの際はご利用ください。</div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>修正はどこまで対応してもらえますか？</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-a">修正は3回まで無料です。4回目以降は¥500/回をいただきます。なお、こちら側のミスや認識のズレによる修正は回数に関わらず無料で対応します。</div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Chatwork以外での連絡は可能ですか？</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-a">基本的な連絡手段はChatworkとなります。まずはこのページのお問い合わせフォームからご連絡いただければ、Chatworkでのやり取りへスムーズに移行できます。</div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>セットプランの契約期間はありますか？</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-a">継続の場合は毎月更新手続きが必要です。月末までに通達がない場合は、自動で更新されます。長期契約に関してはご相談ください。</div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>稼働時間外の連絡はどうなりますか？</span>
+          <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-a">稼働時間は平日9:00〜19:00（土曜除く）です。時間外のご連絡は翌営業日に確認・返信いたします。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section class="section contact" id="contact">
+  <div class="container">
+    <p class="label">CONTACT</p>
+    <h2 class="section-title fade-up">お問い合わせ</h2>
+    <p class="section-sub fade-up">まずはお気軽にご相談ください。</p>
+
+    <div class="contact-wrap">
+      <div>
+        <h3>基本情報</h3>
+        <div class="contact-item">
+          <div class="contact-item-icon">👤</div>
+          <div class="contact-item-body">
+            <p class="contact-item-label">代表者</p>
+            <p class="contact-item-val">中村 航汰（mono.create）</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-body">
+            <p class="contact-item-label">拠点</p>
+            <p class="contact-item-val">北海道</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div class="contact-item-body">
+            <p class="contact-item-label">稼働時間</p>
+            <p class="contact-item-val">平日 9:00〜19:00（土曜除く）</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">💬</div>
+          <div class="contact-item-body">
+            <p class="contact-item-label">主な連絡手段</p>
+            <p class="contact-item-val">Chatwork</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card fade-up">
+        <form id="contact-form">
+          <div class="form-grid">
+            <div class="form-row">
+              <label>お名前<span>*</span></label>
+              <input type="text" class="form-control" name="name" placeholder="山田 太郎" required>
+            </div>
+            <div class="form-row">
+              <label>会社名・屋号</label>
+              <input type="text" class="form-control" name="company" placeholder="株式会社〇〇">
+            </div>
+          </div>
+          <div class="form-row">
+            <label>メールアドレス<span>*</span></label>
+            <input type="email" class="form-control" name="email" placeholder="example@mail.com" required>
+          </div>
+          <div class="form-row">
+            <label>Chatwork ID（お持ちの方）</label>
+            <input type="text" class="form-control" name="chatwork_id" placeholder="例：mono_create">
+          </div>
+          <div class="form-row">
+            <label>ご関心のあるサービス<span>*</span></label>
+            <select class="form-control" name="plan" required>
+              <option value="">-- 選択してください --</option>
+              <option>ショート動画編集（単品 ¥4,000〜）</option>
+              <option>長尺動画編集（単品）</option>
+              <option>丸投げパック 10本（¥49,800）</option>
+              <option>丸投げパック 15本（¥69,800）</option>
+              <option>丸投げパック 30本（¥129,800）</option>
+              <option>SNS全対応 8本投稿パック（¥69,800）</option>
+              <option>SNS全対応 10本投稿パック（¥45,000）</option>
+              <option>SNS全対応 15本投稿パック（¥75,000）</option>
+              <option>SNS全対応 30本投稿パック（¥150,000）</option>
+              <option>ショート×YouTube長尺 スタンダード（¥150,000）</option>
+              <option>ショート×YouTube長尺 プレミアム（¥180,000）</option>
+              <option>編集コンサルティング（¥5,000/h）</option>
+              <option>編集ディレクション・外注管理</option>
+              <option>SNS運用代行（北海道のみ）</option>
+              <option>その他・まずは相談したい</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>ご相談内容<span>*</span></label>
+            <textarea class="form-control" name="message" placeholder="ご依頼の詳細・現状のお悩み・ご質問などをご記入ください。" required></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submit-btn">
+            送信する
+          </button>
+          <p class="form-note">送信後、Chatworkまたはメールにてご連絡します。</p>
+        </form>
+        <div class="form-success" id="form-success">
+          <div class="form-success-icon">✅</div>
+          <h3>送信完了しました！</h3>
+          <p>Chatworkまたはメールにてご連絡いたします。<br>しばらくお待ちください。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Floating CTA ── -->
+<a href="#contact" class="floating-cta">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+  無料相談する
+</a>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-logo">mono<span>.</span>create</div>
+  <div class="footer-links">
+    <a href="#services">サービス</a>
+    <a href="#works">実績</a>
+    <a href="#pricing">料金</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">お問い合わせ</a>
+    <a href="admin.html">管理画面</a>
+  </div>
+  <p class="footer-copy">© 2025 mono.create All Rights Reserved.</p>
+</footer>
+
+<script>
+// ─── 設定 ──────────────────────────────────────────────
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbx5Mta1CzlD-Odanvr9dPtku2TK4PfNe0Fvq_MBHX0UypqY3DgLbZTglcenqf1drfF9vw/exec';
+// ───────────────────────────────────────────────────────
+
+function toggleLongform(row) {
+  const detail = row.querySelector('.longform-detail');
+  const hint = row.querySelector('.longform-toggle-hint');
+  const isOpen = detail.classList.toggle('open');
+  hint.textContent = isOpen ? '▲ 閉じる' : '▼ 詳細を見る';
+}
+
+function copyCwId(btn) {
+  const id = document.getElementById('cw-id-text').textContent.trim();
+  navigator.clipboard.writeText(id).then(() => {
+    btn.textContent = '✅ コピーしました！';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'IDをコピーしてChatworkで検索';
+      btn.classList.remove('copied');
+    }, 2500);
+  });
+}
+
+function switchTab(tab, el) {
+  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.pricing-single,.pricing-option,.pricing-packs').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── ポートフォリオ読み込み ──────────────────────────────────
+function getYtId(url) {
+  var m = url.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([^&?/]+)/);
+  return m ? m[1] : null;
+}
+
+function buildWorkCard(item, idx) {
+  var ytId = getYtId(item.url);
+  var thumb = ytId
+    ? '<img src="https://img.youtube.com/vi/' + ytId + '/hqdefault.jpg" alt="' + item.title + '" style="width:100%;height:100%;object-fit:cover;">'
+    : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg3);color:var(--sub);font-size:0.75rem;">サムネなし</div>';
+  var link = item.url
+    ? '<a href="' + item.url + '" target="_blank" rel="noopener" class="work-link">動画を見る <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>'
+    : '<a href="#contact" class="work-link">詳細はお問い合わせ <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>';
+  return '<div class="work-card visible">'
+    + '<div class="work-thumb"><div class="work-thumb-inner" style="overflow:hidden;">'
+    + thumb
+    + '<div class="play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>'
+    + '<span class="work-type-badge">WORKS ' + String(idx + 1).padStart(2, '0') + '</span>'
+    + '</div></div>'
+    + '<div class="work-body"><p class="work-genre">' + (item.genre || 'ジャンル') + '</p>'
+    + '<p class="work-title">' + (item.title || '—') + '</p>'
+    + link + '</div></div>';
+}
+
+async function loadPortfolio() {
+  if (!GAS_URL) {
+    document.getElementById('portfolio-loading').textContent = 'ポートフォリオは準備中です。';
+    return;
+  }
+  try {
+    var res = await fetch(GAS_URL + '?action=portfolio');
+    var json = await res.json();
+    var shorts = (json.data || []).filter(function(d){ return d.type !== '長尺'; });
+    var longs  = (json.data || []).filter(function(d){ return d.type === '長尺'; });
+    var shortEl = document.getElementById('portfolio-short');
+    var longEl  = document.getElementById('portfolio-long');
+    if (shorts.length) {
+      shortEl.innerHTML = shorts.map(function(d, i){ return buildWorkCard(d, i); }).join('');
+    } else {
+      shortEl.innerHTML = '<p style="color:var(--sub);font-size:0.85rem;padding:16px 0;">ポートフォリオは準備中です。</p>';
+    }
+    if (longs.length) {
+      longEl.innerHTML = longs.map(function(d, i){ return buildWorkCard(d, i); }).join('');
+      document.getElementById('portfolio-long-wrap').style.display = '';
+    }
+  } catch(e) {
+    document.getElementById('portfolio-loading').textContent = 'ポートフォリオの読み込みに失敗しました。';
+  }
+}
+loadPortfolio();
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+document.getElementById('contact-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = '送信中...';
+
+  const form = e.target;
+  const data = {
+    name:        form.name.value,
+    company:     form.company.value,
+    email:       form.email.value,
+    chatwork_id: form.chatwork_id.value,
+    plan:        form.plan.value,
+    message:     form.message.value,
+  };
+
+  try {
+    await fetch(GAS_URL, {
+      method:  'POST',
+      mode:    'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(data),
+    });
+    form.style.display = 'none';
+    document.getElementById('form-success').classList.add('visible');
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = '送信する';
+    alert('送信に失敗しました。時間をおいて再度お試しください。');
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お支払い案内 | mono.create</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #04080F;
+  color: #E8EDF5;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+a { text-decoration: none; color: inherit; }
+
+:root {
+  --bg:        #04080F;
+  --bg2:       #0B1220;
+  --bg3:       #111B2E;
+  --accent:    #3B82F6;
+  --accent-lt: #60A5FA;
+  --sub:       #8B9BB4;
+  --border:    rgba(255,255,255,0.07);
+  --warn:      #F59E0B;
+}
+
+/* ── Header ── */
+header {
+  padding: 20px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(4,8,15,0.95); backdrop-filter: blur(12px);
+}
+.logo { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; }
+.logo span { color: var(--accent-lt); }
+.back-link {
+  font-size: 0.82rem; color: var(--sub);
+  display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--accent-lt); }
+
+/* ── Main ── */
+main { max-width: 680px; margin: 0 auto; padding: 60px 24px 100px; }
+
+/* ── Prepay Banner ── */
+.prepay-banner {
+  background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(239,68,68,0.1));
+  border: 1px solid rgba(245,158,11,0.35);
+  border-radius: 14px;
+  padding: 20px 24px;
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 40px;
+}
+.prepay-banner__icon { font-size: 2rem; flex-shrink: 0; }
+.prepay-banner__title { font-size: 0.95rem; font-weight: 700; color: #F59E0B; margin-bottom: 4px; }
+.prepay-banner__body { font-size: 0.82rem; color: var(--sub); line-height: 1.7; }
+
+/* ── Section ── */
+.pay-section { margin-bottom: 40px; }
+.pay-section__title {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--accent-lt); text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.pay-section__title::after {
+  content: ''; flex: 1; height: 1px; background: rgba(59,130,246,0.2);
+}
+
+/* ── Bank Info Card ── */
+.bank-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.bank-card__row {
+  display: flex; align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+}
+.bank-card__row:last-child { border-bottom: none; }
+.bank-card__label {
+  font-size: 0.78rem; color: var(--sub); font-weight: 500;
+  min-width: 110px; flex-shrink: 0;
+}
+.bank-card__value {
+  font-size: 0.95rem; font-weight: 600; color: #E8EDF5;
+  letter-spacing: 0.02em;
+}
+.bank-card__value.highlight {
+  color: var(--accent-lt); font-size: 1.05rem;
+}
+.copy-btn {
+  margin-left: auto; flex-shrink: 0;
+  font-size: 0.72rem; color: var(--sub);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 6px; padding: 4px 10px;
+  cursor: pointer; transition: all 0.2s;
+}
+.copy-btn:hover { color: var(--accent-lt); border-color: var(--accent-lt); }
+.copy-btn.copied { color: #10B981; border-color: #10B981; }
+
+/* ── Notice List ── */
+.notice-list {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.notice-item {
+  font-size: 0.83rem; color: var(--sub); line-height: 1.7;
+  display: flex; gap: 10px;
+}
+.notice-item::before { content: '•'; color: var(--accent-lt); flex-shrink: 0; }
+
+/* ── Amount Box ── */
+.amount-box {
+  background: var(--bg3);
+  border: 1px solid rgba(59,130,246,0.25);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+}
+.amount-box__label { font-size: 0.78rem; color: var(--sub); margin-bottom: 8px; }
+.amount-box__value {
+  font-size: 2.2rem; font-weight: 800;
+  color: #E8EDF5; letter-spacing: -0.02em;
+  font-family: 'Inter', sans-serif;
+}
+.amount-box__plan {
+  font-size: 0.83rem; color: var(--sub); margin-top: 6px;
+}
+.amount-hint {
+  font-size: 0.78rem; color: var(--sub); margin-top: 12px;
+  background: rgba(59,130,246,0.06); border-radius: 8px; padding: 10px 14px;
+}
+
+/* ── Form ── */
+.pay-form {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 32px;
+}
+.form-group { margin-bottom: 20px; }
+.form-label {
+  display: block; font-size: 0.82rem; font-weight: 600;
+  margin-bottom: 8px; color: #C9D5E8;
+}
+.form-label .req {
+  color: #EF4444; font-size: 0.7rem; margin-left: 4px;
+}
+.form-input, .form-select {
+  width: 100%; padding: 12px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: #E8EDF5; font-size: 0.9rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.form-input:focus, .form-select:focus { border-color: var(--accent); }
+.form-input::placeholder { color: var(--sub); }
+.form-select option { background: #111B2E; }
+
+.submit-btn {
+  width: 100%; padding: 16px;
+  background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+  color: #fff; font-size: 1rem; font-weight: 700;
+  border: none; border-radius: 10px; cursor: pointer;
+  transition: all 0.2s; margin-top: 8px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.submit-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(59,130,246,0.35); }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ── Success ── */
+.success-box {
+  display: none; text-align: center; padding: 40px 24px;
+  background: rgba(16,185,129,0.08);
+  border: 1px solid rgba(16,185,129,0.25);
+  border-radius: 14px; margin-top: 8px;
+}
+.success-box__icon { font-size: 3rem; margin-bottom: 16px; }
+.success-box__title { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; color: #10B981; }
+.success-box__body { font-size: 0.85rem; color: var(--sub); line-height: 1.8; }
+
+/* ── Footer ── */
+footer {
+  text-align: center; padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem; color: var(--sub);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">mono<span>.</span>create</div>
+  <a href="index.html" class="back-link">← サービスページに戻る</a>
+</header>
+
+<main>
+
+  <!-- 先払いバナー -->
+  <div class="prepay-banner">
+    <div class="prepay-banner__icon">⚠️</div>
+    <div>
+      <p class="prepay-banner__body">mono.createでは<strong style="color:#E8EDF5;">ご入金の確認後に編集を開始</strong>しております。<br>トラブル防止のため、必ず振込完了後に素材をご共有ください。</p>
+    </div>
+  </div>
+
+  <!-- 振込金額 -->
+  <div class="pay-section">
+    <p class="pay-section__title">お振込金額</p>
+    <div class="amount-box">
+      <p class="amount-box__label">今回のご請求額</p>
+      <p class="amount-box__value" id="amount-display">契約時にご確認ください</p>
+      <p class="amount-box__plan" id="plan-display"></p>
+      <p class="amount-hint">※ 正確な金額はChatworkでお送りした請求内容をご確認ください。</p>
+    </div>
+  </div>
+
+  <!-- 振込先情報 -->
+  <div class="pay-section">
+    <p class="pay-section__title">振込先口座情報</p>
+    <div class="bank-card">
+      <div class="bank-card__row">
+        <span class="bank-card__label">銀行名</span>
+        <span class="bank-card__value" id="bank-name">ペイペイ銀行</span>
+        <button class="copy-btn" onclick="copyText('ペイペイ銀行', this)">コピー</button>
+      </div>
+      <div class="bank-card__row">
+        <span class="bank-card__label">銀行コード</span>
+        <span class="bank-card__value">0033</span>
+        <button class="copy-btn" onclick="copyText('0033', this)">コピー</button>
+      </div>
+      <div class="bank-card__row">
+        <span class="bank-card__label">支店名</span>
+        <span class="bank-card__value" id="bank-branch">うぐいす支店（ウグイス）</span>
+        <button class="copy-btn" onclick="copyText('うぐいす支店', this)">コピー</button>
+      </div>
+      <div class="bank-card__row">
+        <span class="bank-card__label">店番号</span>
+        <span class="bank-card__value">008</span>
+        <button class="copy-btn" onclick="copyText('008', this)">コピー</button>
+      </div>
+      <div class="bank-card__row">
+        <span class="bank-card__label">口座種別</span>
+        <span class="bank-card__value">普通</span>
+      </div>
+      <div class="bank-card__row">
+        <span class="bank-card__label">口座番号</span>
+        <span class="bank-card__value highlight" id="bank-number">4220331</span>
+        <button class="copy-btn" onclick="copyText('4220331', this)">コピー</button>
+      </div>
+      <div class="bank-card__row">
+        <span class="bank-card__label">口座名義</span>
+        <span class="bank-card__value" id="bank-name-holder">ナカムラ コウタ</span>
+        <button class="copy-btn" onclick="copyText('ナカムラ コウタ', this)">コピー</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 振込時の注意事項 -->
+  <div class="pay-section">
+    <p class="pay-section__title">振込時のご注意</p>
+    <div class="notice-list">
+      <div class="notice-item"><span>振込手数料はご負担ください。</span></div>
+      <div class="notice-item"><span>振込人名義は<strong style="color:#E8EDF5;">ご本人名義</strong>でお振込みください。法人の場合は会社名義でも可。</span></div>
+      <div class="notice-item"><span>振込確認後、Chatworkにてご連絡します（通常営業時間内に対応）。</span></div>
+      <div class="notice-item"><span>振込完了後、下記フォームから<strong style="color:#E8EDF5;">振込完了のご報告</strong>をお願いします。確認がスムーズになります。</span></div>
+      <div class="notice-item"><span>ご入金確認前に素材の共有をいただいても、編集は開始できません。</span></div>
+      <div class="notice-item">稼働時間外（平日19:00以降・土日）の入金確認は翌営業日になります。</div>
+    </div>
+  </div>
+
+  <!-- 振込完了報告フォーム -->
+  <div class="pay-section">
+    <p class="pay-section__title">振込完了のご報告</p>
+    <div class="pay-form" id="report-form-wrap">
+      <p style="font-size:0.83rem;color:var(--sub);margin-bottom:24px;line-height:1.8;">
+        振込完了後にこのフォームからご報告いただくと、入金確認がスムーズになります。<br>
+        Chatworkへの確認メッセージと合わせてご利用ください。
+      </p>
+      <form id="report-form">
+        <div class="form-group">
+          <label class="form-label">お名前（振込人名義）<span class="req">*</span></label>
+          <input type="text" class="form-input" id="r-name" placeholder="山田 太郎" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Chatwork IDまたはメールアドレス<span class="req">*</span></label>
+          <input type="text" class="form-input" id="r-contact" placeholder="例：mono_create / example@mail.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">ご契約プラン<span class="req">*</span></label>
+          <select class="form-select" id="r-plan" required>
+            <option value="">-- 選択してください --</option>
+            <option>ショート動画編集（単品 ¥4,000〜）</option>
+            <option>長尺動画編集（単品）</option>
+            <option>丸投げパック 10本（¥49,800）</option>
+            <option>丸投げパック 15本（¥69,800）</option>
+            <option>丸投げパック 30本（¥129,800）</option>
+            <option>SNS全対応 8本投稿パック（¥69,800）</option>
+            <option>SNS全対応 10本投稿パック（¥45,000）</option>
+            <option>SNS全対応 15本投稿パック（¥75,000）</option>
+            <option>SNS全対応 30本投稿パック（¥150,000）</option>
+            <option>ショート×YouTube長尺 スタンダード（¥150,000）</option>
+            <option>ショート×YouTube長尺 プレミアム（¥180,000）</option>
+            <option>編集コンサルティング（¥5,000/h）</option>
+            <option>編集ディレクション・外注管理</option>
+            <option>SNS運用代行</option>
+            <option>その他</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">振込金額<span class="req">*</span></label>
+          <input type="text" class="form-input" id="r-amount" placeholder="例：¥49,800" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">振込日<span class="req">*</span></label>
+          <input type="date" class="form-input" id="r-date" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">備考・メッセージ</label>
+          <input type="text" class="form-input" id="r-note" placeholder="任意でご記入ください">
+        </div>
+        <button type="submit" class="submit-btn" id="r-submit">振込完了を報告する</button>
+      </form>
+      <div class="success-box" id="success-box">
+        <div class="success-box__icon">✅</div>
+        <p class="success-box__title">ご報告ありがとうございます！</p>
+        <p class="success-box__body">
+          内容を確認次第、Chatworkにてご連絡いたします。<br>
+          通常、営業時間内（平日9:00〜19:00）に対応します。<br><br>
+          素材の共有は入金確認のご連絡後にお願いします。
+        </p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  © 2025 mono.create All Rights Reserved.
+</footer>
+
+<script>
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbx5Mta1CzlD-Odanvr9dPtku2TK4PfNe0Fvq_MBHX0UypqY3DgLbZTglcenqf1drfF9vw/exec';
+
+// URLパラメータからプラン・金額を反映
+(function() {
+  const p = new URLSearchParams(location.search);
+  const amount = p.get('amount');
+  const plan   = p.get('plan');
+  if (amount) {
+    document.getElementById('amount-display').textContent = '¥' + Number(amount).toLocaleString();
+    document.getElementById('r-amount').value = '¥' + Number(amount).toLocaleString();
+  }
+  if (plan) {
+    document.getElementById('plan-display').textContent = plan;
+    const sel = document.getElementById('r-plan');
+    for (let o of sel.options) { if (o.value === plan) { sel.value = plan; break; } }
+  }
+  // デフォルト振込日を今日に
+  document.getElementById('r-date').value = new Date().toISOString().slice(0,10);
+})();
+
+// コピー機能
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'コピー済';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'コピー'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// フォーム送信
+document.getElementById('report-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('r-submit');
+  btn.disabled = true;
+  btn.textContent = '送信中...';
+
+  const payload = {
+    action:   'payment_notify',
+    name:     document.getElementById('r-name').value,
+    contact:  document.getElementById('r-contact').value,
+    plan:     document.getElementById('r-plan').value,
+    amount:   document.getElementById('r-amount').value,
+    date:     document.getElementById('r-date').value,
+    note:     document.getElementById('r-note').value,
+  };
+
+  try {
+    await fetch(GAS_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+    document.getElementById('report-form-wrap').querySelector('form').style.display = 'none';
+    document.getElementById('success-box').style.display = 'block';
+  } catch(err) {
+    alert('送信に失敗しました。Chatworkにて直接ご連絡ください。');
+    btn.disabled = false;
+    btn.textContent = '振込完了を報告する';
+  }
+});
+</script>
+
+</body>
+</html>
