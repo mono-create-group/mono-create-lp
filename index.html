@@ -27,16 +27,17 @@ a { text-decoration: none; color: inherit; }
 /* ── CSS Variables ── */
 :root {
   --bg:        #FFFFFF;
-  --bg2:       #F8FAFC;
-  --bg3:       #EFF6FF;
+  --bg2:       #FAF9F6;
+  --bg3:       #F3EFE9;
   --accent:    #1E40AF;
   --accent-lt: #2563EB;
   --glow:      rgba(30,64,175,0.10);
   --gold:      #B45309;
+  --gold-lt:   #D97706;
   --green:     #047857;
   --text:      #0F172A;
   --sub:       #64748B;
-  --border:    rgba(15,23,42,0.10);
+  --border:    rgba(15,23,42,0.09);
   --card:      rgba(15,23,42,0.03);
   --radius:    12px;
 }
@@ -63,6 +64,10 @@ a { text-decoration: none; color: inherit; }
   font-weight: 900;
   line-height: 1.3;
   margin-bottom: 16px;
+}
+.mark {
+  background: linear-gradient(transparent 55%, rgba(250,204,21,0.45) 55%);
+  padding-bottom: 2px;
 }
 .section-sub {
   color: var(--sub);
@@ -177,7 +182,49 @@ nav {
 .hero h1 em {
   font-style: normal;
   color: var(--accent-lt);
-  display: block;
+  display: inline;
+  background: linear-gradient(transparent 58%, rgba(250,204,21,0.45) 58%);
+  padding-bottom: 2px;
+}
+
+/* ── Achievement Badges (参考: PRONIアイミツ) ── */
+.achievement-badges {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  margin-top: 36px;
+}
+.achievement-badge {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #FFFBEB, #FEF3C7);
+  border: 2.5px solid #D97706;
+  text-align: center;
+  padding: 10px 6px;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(217,119,6,0.18);
+  flex-shrink: 0;
+}
+.achievement-badge::before {
+  content: '';
+  position: absolute; inset: 5px;
+  border-radius: 50%;
+  border: 1px dashed rgba(217,119,6,0.40);
+  pointer-events: none;
+}
+.achievement-badge-num {
+  font-size: 1.35rem; font-weight: 900; color: var(--text);
+  line-height: 1; letter-spacing: -0.03em;
+  font-family: 'Inter', sans-serif;
+}
+.achievement-badge-num span { font-size: 0.72rem; font-weight: 700; color: var(--gold); }
+.achievement-badge-label {
+  font-size: 0.62rem; font-weight: 700; color: var(--gold);
+  letter-spacing: 0.03em; line-height: 1.4; margin-top: 4px;
+}
+@media (max-width: 480px) {
+  .achievement-badges { gap: 12px; }
+  .achievement-badge { width: 90px; height: 90px; }
+  .achievement-badge-num { font-size: 1.1rem; }
 }
 .hero-desc {
   color: var(--sub);
@@ -755,7 +802,7 @@ footer {
     <a href="#works">実績</a>
     <a href="#pricing">料金</a>
     <a href="#faq">FAQ</a>
-    <a href="#contact" class="btn btn-primary" style="padding:9px 22px;font-size:0.82rem;">無料相談する</a>
+    <a href="#contact" class="btn btn-primary" style="padding:9px 22px;font-size:0.82rem;">無料で相談する →</a>
   </div>
 </nav>
 
@@ -775,23 +822,23 @@ footer {
       <div class="hero-cta">
         <a href="#contact" class="btn btn-primary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-          無料相談する
+          無料で相談する →
         </a>
-        <a href="#works" class="btn btn-outline">実績を見る</a>
+        <a href="#pricing" class="btn btn-outline">料金を見る</a>
       </div>
-      <div class="hero-badges">
-        <span class="hero-badge">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          最短当日納品
-        </span>
-        <span class="hero-badge">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          修正3回無料
-        </span>
-        <span class="hero-badge">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          チーム体制
-        </span>
+      <div class="achievement-badges">
+        <div class="achievement-badge">
+          <p class="achievement-badge-num">当日<span>〜3日</span></p>
+          <p class="achievement-badge-label">最短<br>納品対応</p>
+        </div>
+        <div class="achievement-badge">
+          <p class="achievement-badge-num">3<span>回</span></p>
+          <p class="achievement-badge-label">修正<br>無料保証</p>
+        </div>
+        <div class="achievement-badge">
+          <p class="achievement-badge-num">全<span>ジャンル</span></p>
+          <p class="achievement-badge-label">業種・用途<br>対応実績あり</p>
+        </div>
       </div>
     </div>
 
@@ -878,7 +925,7 @@ footer {
 <section class="section" id="services">
   <div class="container">
     <p class="label">SERVICES</p>
-    <h2 class="section-title fade-up">提供サービス</h2>
+    <h2 class="section-title fade-up"><span class="mark">提供サービス</span></h2>
     <p class="section-sub fade-up">編集単体から運用丸投げまで、ビジネスフェーズに合わせて選べます。</p>
     <div class="services-grid">
       <div class="service-card fade-up">
@@ -919,7 +966,7 @@ footer {
 <section class="section strengths">
   <div class="container">
     <p class="label">WHY mono.create</p>
-    <h2 class="section-title fade-up">3つの強み</h2>
+    <h2 class="section-title fade-up"><span class="mark">3つの強み</span></h2>
     <div class="strengths-grid">
       <div class="strength-item fade-up">
         <div class="strength-num">01</div>
@@ -965,7 +1012,7 @@ footer {
 <section class="section pricing" id="pricing">
   <div class="container">
     <p class="label">PRICING</p>
-    <h2 class="section-title fade-up">料金プラン</h2>
+    <h2 class="section-title fade-up"><span class="mark">料金プラン</span></h2>
     <p class="section-sub fade-up">記載は最低料金です。詳細はお問い合わせください。</p>
 
     <div style="margin-top:40px;">
@@ -1475,7 +1522,7 @@ footer {
 <!-- ── Floating CTA ── -->
 <a href="#contact" class="floating-cta">
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-  無料相談する
+  無料で相談する →
 </a>
 
 <!-- ── Footer ── -->
