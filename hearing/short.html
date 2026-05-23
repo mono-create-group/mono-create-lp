@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ヒアリングシート — ショート動画編集 | mono.create</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #FAF9F6;
+  color: #0F172A;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+a { color: inherit; text-decoration: none; }
+
+.header {
+  background: #fff;
+  border-bottom: 1px solid rgba(15,23,42,0.09);
+  padding: 16px 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.header-logo { font-weight: 900; font-size: 1.1rem; }
+.header-logo span { color: #2563EB; }
+.header-plan {
+  font-size: 0.75rem; font-weight: 700; color: #2563EB;
+  background: rgba(37,99,235,0.08); border: 1px solid rgba(37,99,235,0.2);
+  padding: 4px 12px; border-radius: 20px; margin-left: auto;
+}
+
+.container { max-width: 680px; margin: 40px auto; padding: 0 24px; }
+
+.intro-card {
+  background: #fff;
+  border: 1px solid rgba(15,23,42,0.09);
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin-bottom: 32px;
+}
+.intro-card h1 { font-size: 1.25rem; font-weight: 900; margin-bottom: 8px; }
+.intro-card p  { font-size: 0.88rem; color: #64748B; line-height: 1.8; }
+.intro-plan {
+  display: inline-block; margin-bottom: 16px;
+  font-size: 0.75rem; font-weight: 700; color: #B45309;
+  background: #FEF3C7; border: 1px solid #D97706;
+  padding: 4px 14px; border-radius: 20px;
+}
+
+.form-card {
+  background: #fff;
+  border: 1px solid rgba(15,23,42,0.09);
+  border-radius: 16px;
+  padding: 32px;
+}
+.form-section {
+  border-top: 1px solid rgba(15,23,42,0.07);
+  padding-top: 24px;
+  margin-top: 24px;
+}
+.form-section:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+.form-section-title {
+  font-size: 0.8rem; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #2563EB;
+  margin-bottom: 20px;
+}
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block; font-size: 0.82rem; font-weight: 700;
+  color: #0F172A; margin-bottom: 6px;
+}
+.form-group label span { color: #DC2626; font-size: 0.75rem; }
+.form-group .hint { font-size: 0.75rem; color: #64748B; margin-bottom: 6px; }
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid rgba(15,23,42,0.12);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: #0F172A;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+}
+.form-textarea { resize: vertical; min-height: 90px; }
+.form-radio-group { display: flex; flex-direction: column; gap: 8px; }
+.form-radio-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  border: 1.5px solid rgba(15,23,42,0.10);
+  border-radius: 8px; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.form-radio-item:has(input:checked) {
+  border-color: #2563EB;
+  background: rgba(37,99,235,0.05);
+}
+.form-radio-item input { accent-color: #2563EB; width: 16px; height: 16px; }
+.form-radio-item span { font-size: 0.85rem; }
+.form-check-group { display: flex; flex-direction: column; gap: 8px; }
+.form-check-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px;
+  border: 1.5px solid rgba(15,23,42,0.10);
+  border-radius: 8px; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.form-check-item:has(input:checked) {
+  border-color: #2563EB;
+  background: rgba(37,99,235,0.04);
+}
+.form-check-item input { accent-color: #2563EB; width: 16px; height: 16px; }
+.form-check-item span { font-size: 0.85rem; }
+
+.submit-btn {
+  width: 100%; padding: 15px;
+  background: #1E40AF; color: #fff;
+  border: none; border-radius: 12px;
+  font-size: 1rem; font-weight: 800;
+  cursor: pointer; font-family: inherit;
+  margin-top: 32px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.submit-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+.success-box {
+  display: none;
+  background: #F0FDF4; border: 1.5px solid #16A34A;
+  border-radius: 16px; padding: 40px 32px; text-align: center;
+  margin-top: 32px;
+}
+.success-box.visible { display: block; }
+.success-box h2 { font-size: 1.2rem; font-weight: 900; color: #15803D; margin-bottom: 12px; }
+.success-box p  { font-size: 0.88rem; color: #166534; line-height: 1.9; }
+.success-icon { font-size: 3rem; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-logo">mono<span>.</span>create</div>
+  <span class="header-plan" id="plan-badge">ショート動画編集</span>
+</header>
+
+<div class="container">
+
+  <div class="intro-card">
+    <p class="intro-plan" id="plan-display">ショート動画編集パック</p>
+    <h1>📋 ヒアリングシート</h1>
+    <p>契約同意ありがとうございます。以下の項目にご回答いただくことで、最適な編集環境をご用意できます。<br>
+    回答後、2営業日以内にChatworkまたはメールにてご連絡いたします。</p>
+  </div>
+
+  <form class="form-card" id="hearing-form">
+
+    <!-- 基本情報 -->
+    <div class="form-section">
+      <p class="form-section-title">基本情報</p>
+      <div class="form-group">
+        <label>お名前 <span>*</span></label>
+        <input type="text" class="form-input" id="f-name" name="name" required placeholder="山田 太郎">
+      </div>
+      <div class="form-group">
+        <label>メールアドレス <span>*</span></label>
+        <input type="email" class="form-input" id="f-email" name="email" required placeholder="email@example.com">
+      </div>
+      <div class="form-group">
+        <label>会社名 / 屋号</label>
+        <input type="text" class="form-input" name="company" placeholder="株式会社〇〇 / 個人の場合は空欄でOK">
+      </div>
+      <div class="form-group">
+        <label>Chatwork ID（お持ちの場合）</label>
+        <input type="text" class="form-input" name="chatwork_id" placeholder="例: yamada_taro">
+      </div>
+    </div>
+
+    <!-- SNS情報 -->
+    <div class="form-section">
+      <p class="form-section-title">SNSアカウント情報</p>
+      <div class="form-group">
+        <label>メインで運用中のSNSアカウントURL <span>*</span></label>
+        <p class="hint">Instagram / TikTok / YouTube Shortsなど</p>
+        <input type="url" class="form-input" name="sns_url" required placeholder="https://www.instagram.com/username/">
+      </div>
+      <div class="form-group">
+        <label>投稿するSNS（複数選択可）</label>
+        <div class="form-check-group">
+          <label class="form-check-item"><input type="checkbox" name="sns_platform" value="Instagram"><span>Instagram</span></label>
+          <label class="form-check-item"><input type="checkbox" name="sns_platform" value="TikTok"><span>TikTok</span></label>
+          <label class="form-check-item"><input type="checkbox" name="sns_platform" value="YouTube Shorts"><span>YouTube Shorts</span></label>
+          <label class="form-check-item"><input type="checkbox" name="sns_platform" value="その他"><span>その他</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>アカウントのジャンル / テーマ <span>*</span></label>
+        <input type="text" class="form-input" name="genre" required placeholder="例：ビジネス / 美容 / ナイト業界 / スポーツ">
+      </div>
+    </div>
+
+    <!-- 動画仕様 -->
+    <div class="form-section">
+      <p class="form-section-title">動画の仕様</p>
+      <div class="form-group">
+        <label>1本あたりの動画の長さ</label>
+        <div class="form-radio-group">
+          <label class="form-radio-item"><input type="radio" name="duration" value="15秒以内"><span>15秒以内</span></label>
+          <label class="form-radio-item"><input type="radio" name="duration" value="15〜30秒"><span>15〜30秒</span></label>
+          <label class="form-radio-item"><input type="radio" name="duration" value="30〜60秒"><span>30〜60秒</span></label>
+          <label class="form-radio-item"><input type="radio" name="duration" value="1〜3分"><span>1〜3分</span></label>
+          <label class="form-radio-item"><input type="radio" name="duration" value="未定・相談したい"><span>未定・相談したい</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>テロップスタイルの希望</label>
+        <div class="form-radio-group">
+          <label class="form-radio-item"><input type="radio" name="caption_style" value="シンプル（白文字）"><span>シンプル（白文字）</span></label>
+          <label class="form-radio-item"><input type="radio" name="caption_style" value="アニメーション付き"><span>アニメーション付き</span></label>
+          <label class="form-radio-item"><input type="radio" name="caption_style" value="カラフル・賑やか系"><span>カラフル・賑やか系</span></label>
+          <label class="form-radio-item"><input type="radio" name="caption_style" value="おまかせ"><span>おまかせ</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>BGM / SE について</label>
+        <div class="form-radio-group">
+          <label class="form-radio-item"><input type="radio" name="bgm" value="あり（おまかせ）"><span>あり（おまかせ）</span></label>
+          <label class="form-radio-item"><input type="radio" name="bgm" value="あり（指定あり）"><span>あり（指定あり）</span></label>
+          <label class="form-radio-item"><input type="radio" name="bgm" value="なし"><span>なし</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>参考にしたい動画URL</label>
+        <p class="hint">雰囲気・スタイルが近い動画があれば貼ってください</p>
+        <input type="text" class="form-input" name="ref_url" placeholder="https://www.tiktok.com/...">
+      </div>
+    </div>
+
+    <!-- 素材・納品 -->
+    <div class="form-section">
+      <p class="form-section-title">素材・納品</p>
+      <div class="form-group">
+        <label>素材の提供方法</label>
+        <div class="form-radio-group">
+          <label class="form-radio-item"><input type="radio" name="material" value="Googleドライブ"><span>Googleドライブ</span></label>
+          <label class="form-radio-item"><input type="radio" name="material" value="Dropbox"><span>Dropbox</span></label>
+          <label class="form-radio-item"><input type="radio" name="material" value="WeTransfer"><span>WeTransfer</span></label>
+          <label class="form-radio-item"><input type="radio" name="material" value="Chatworkで共有"><span>Chatworkで共有</span></label>
+          <label class="form-radio-item"><input type="radio" name="material" value="相談したい"><span>相談したい</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>希望の納品形式</label>
+        <div class="form-radio-group">
+          <label class="form-radio-item"><input type="radio" name="delivery" value="MP4（縦型 9:16）"><span>MP4（縦型 9:16）</span></label>
+          <label class="form-radio-item"><input type="radio" name="delivery" value="MP4（正方形 1:1）"><span>MP4（正方形 1:1）</span></label>
+          <label class="form-radio-item"><input type="radio" name="delivery" value="おまかせ"><span>おまかせ</span></label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>納期の希望</label>
+        <div class="form-radio-group">
+          <label class="form-radio-item"><input type="radio" name="deadline" value="最短（1〜3日）"><span>最短（1〜3日）</span></label>
+          <label class="form-radio-item"><input type="radio" name="deadline" value="通常（5〜7日）"><span>通常（5〜7日）</span></label>
+          <label class="form-radio-item"><input type="radio" name="deadline" value="月に◯本ペースで継続"><span>月に◯本ペースで継続</span></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- その他 -->
+    <div class="form-section">
+      <p class="form-section-title">その他</p>
+      <div class="form-group">
+        <label>ご要望・特記事項</label>
+        <textarea class="form-textarea" name="note" placeholder="NGな表現・使用ソフトの指定・過去の制作で気になった点など、何でもご記載ください。"></textarea>
+      </div>
+      <div class="form-group">
+        <label>このサービスを知ったきっかけ</label>
+        <div class="form-radio-group">
+          <label class="form-radio-item"><input type="radio" name="source" value="X（Twitter）"><span>X（Twitter）</span></label>
+          <label class="form-radio-item"><input type="radio" name="source" value="Instagram"><span>Instagram</span></label>
+          <label class="form-radio-item"><input type="radio" name="source" value="知人の紹介"><span>知人の紹介</span></label>
+          <label class="form-radio-item"><input type="radio" name="source" value="Google検索"><span>Google検索</span></label>
+          <label class="form-radio-item"><input type="radio" name="source" value="その他"><span>その他</span></label>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submit-btn">ヒアリングシートを送信する →</button>
+  </form>
+
+  <div class="success-box" id="success-box">
+    <div class="success-icon">✅</div>
+    <h2>回答を受け付けました！</h2>
+    <p>ありがとうございます。<strong id="success-name"></strong> 様のご回答を確認いたしました。<br>
+    2営業日以内に <strong id="success-email"></strong> またはChatworkにてご連絡いたします。<br><br>
+    お急ぎの場合はChatwork（ID: nakamurakota512）までご連絡ください。</p>
+  </div>
+
+</div>
+
+<script>
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbx5Mta1CzlD-Odanvr9dPtku2TK4PfNe0Fvq_MBHX0UypqY3DgLbZTglcenqf1drfF9vw/exec';
+
+// URLパラメータから事前入力
+const params = new URLSearchParams(location.search);
+const paramName  = params.get('name')  || '';
+const paramEmail = params.get('email') || '';
+const paramPlan  = params.get('plan')  || 'ショート動画編集';
+
+if (paramName)  document.getElementById('f-name').value  = paramName;
+if (paramEmail) document.getElementById('f-email').value = paramEmail;
+document.getElementById('plan-display').textContent = paramPlan;
+document.getElementById('plan-badge').textContent = paramPlan;
+
+document.getElementById('hearing-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true; btn.textContent = '送信中...';
+
+  const form = e.target;
+  const fd = new FormData(form);
+
+  // チェックボックス（複数選択）
+  const platforms = [...form.querySelectorAll('input[name=sns_platform]:checked')].map(i => i.value);
+
+  const answers = {
+    '会社名/屋号':        fd.get('company') || '',
+    'Chatwork ID':        fd.get('chatwork_id') || '',
+    'SNSアカウントURL':   fd.get('sns_url') || '',
+    '投稿SNS':            platforms.join(' / ') || '',
+    'ジャンル/テーマ':    fd.get('genre') || '',
+    '動画の長さ':         fd.get('duration') || '',
+    'テロップスタイル':   fd.get('caption_style') || '',
+    'BGM/SE':             fd.get('bgm') || '',
+    '参考動画URL':        fd.get('ref_url') || '',
+    '素材提供方法':       fd.get('material') || '',
+    '納品形式':           fd.get('delivery') || '',
+    '納期希望':           fd.get('deadline') || '',
+    'ご要望・特記事項':   fd.get('note') || '',
+    '認知きっかけ':       fd.get('source') || '',
+  };
+
+  try {
+    await fetch(GAS_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'hearing',
+        name:  fd.get('name'),
+        email: fd.get('email'),
+        plan:  paramPlan,
+        answers,
+      }),
+    });
+  } catch(err) { /* no-cors */ }
+
+  document.getElementById('hearing-form').style.display = 'none';
+  const sb = document.getElementById('success-box');
+  sb.classList.add('visible');
+  document.getElementById('success-name').textContent  = fd.get('name');
+  document.getElementById('success-email').textContent = fd.get('email');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+</body>
+</html>

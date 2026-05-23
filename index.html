@@ -790,6 +790,105 @@ footer {
     font-size: 0.8rem;
   }
 }
+
+/* ── Contract Modal ── */
+.contract-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(15,23,42,0.65);
+  backdrop-filter: blur(4px);
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 16px 40px;
+  overflow-y: auto;
+}
+.contract-overlay.open { display: flex; }
+.contract-box {
+  background: var(--bg);
+  border-radius: 16px;
+  max-width: 680px;
+  width: 100%;
+  margin: auto;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+  overflow: hidden;
+}
+.contract-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg2);
+}
+.contract-header h3 { font-size: 1rem; font-weight: 800; color: var(--text); }
+.contract-close-btn {
+  background: none; border: none;
+  font-size: 1.3rem; cursor: pointer;
+  color: var(--sub); padding: 2px 8px; line-height: 1;
+}
+.contract-plan-tag {
+  font-size: 0.73rem; font-weight: 700; color: var(--accent-lt);
+  padding: 4px 12px; background: rgba(37,99,235,0.09);
+  border-radius: 20px; display: inline-block; margin-bottom: 14px;
+}
+.contract-body {
+  padding: 20px 24px;
+  max-height: 360px;
+  overflow-y: auto;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8rem;
+  line-height: 1.9;
+  color: var(--text);
+}
+.contract-body h4 {
+  font-size: 0.83rem; font-weight: 800; margin: 14px 0 5px;
+  color: var(--accent);
+}
+.contract-body p { margin-bottom: 7px; }
+.contract-body ul { padding-left: 16px; margin-bottom: 7px; }
+.contract-body li { margin-bottom: 3px; }
+.contract-footer { padding: 18px 24px; }
+.contract-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+@media (max-width: 480px) { .contract-fields { grid-template-columns: 1fr; } }
+.contract-field label {
+  display: block; font-size: 0.73rem; font-weight: 700;
+  color: var(--sub); margin-bottom: 4px;
+}
+.contract-field label span { color: #DC2626; }
+.contract-field input {
+  width: 100%; padding: 9px 12px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 0.84rem; font-family: inherit;
+  color: var(--text); background: var(--bg);
+  transition: border-color 0.2s;
+}
+.contract-field input:focus { outline: none; border-color: var(--accent-lt); }
+.contract-agree-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 14px; background: var(--bg3);
+  border-radius: 8px; margin-bottom: 14px; cursor: pointer;
+}
+.contract-agree-row input[type=checkbox] {
+  width: 18px; height: 18px; accent-color: var(--accent);
+  flex-shrink: 0; cursor: pointer;
+}
+.contract-agree-row span { font-size: 0.82rem; color: var(--text); font-weight: 600; }
+.contract-submit-btn {
+  width: 100%; padding: 13px;
+  background: var(--accent); color: #fff;
+  border: none; border-radius: 10px;
+  font-size: 0.93rem; font-weight: 800; cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s; font-family: inherit;
+}
+.contract-submit-btn:disabled { opacity: 0.38; cursor: not-allowed; }
+.contract-submit-btn:not(:disabled):hover { opacity: 0.88; transform: translateY(-1px); }
 </style>
 </head>
 <body>
@@ -828,8 +927,8 @@ footer {
       </div>
       <div class="achievement-badges">
         <div class="achievement-badge">
-          <p class="achievement-badge-num">当日<span>〜3日</span></p>
-          <p class="achievement-badge-label">最短<br>納品対応</p>
+          <p class="achievement-badge-num">丸投<span>げOK</span></p>
+          <p class="achievement-badge-label">完全外注<br>お任せ対応</p>
         </div>
         <div class="achievement-badge">
           <p class="achievement-badge-num">3<span>回</span></p>
@@ -950,7 +1049,8 @@ footer {
         <div class="service-icon">👥</div>
         <h3>編集者派遣</h3>
         <p>即戦力の動画編集者をチームに追加。<br>採用・育成コストをゼロにしながら、すぐに生産力を上げられます。</p>
-        <span class="service-badge">¥2,500〜 / 本</span>
+        <span class="service-badge">ショート ¥2,500〜 / 本</span>
+        <span class="service-badge" style="margin-top:6px;display:inline-block;">長尺 ¥6,000〜 / 本</span>
       </div>
       <div class="service-card fade-up">
         <div class="service-icon">🚀</div>
@@ -1116,8 +1216,8 @@ footer {
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ショート動画編集 × 10本</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
             </ul>
-            <a href="YOUR_STRIPE_LINK_PACK10_EDIT" class="btn btn-gold" style="width:100%;justify-content:center;">今すぐ申し込む →</a>
-            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+            <a href="#" onclick="openContract('short-10');return false;" class="btn btn-gold" style="width:100%;justify-content:center;">今すぐ申し込む →</a>
+            <p class="pack-note">※ 契約同意後すぐにヒアリングシートへ進みます。</p>
           </div>
           <div class="pack-card featured fade-up">
             <span class="pack-badge">人気 No.1</span>
@@ -1132,8 +1232,8 @@ footer {
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ショート動画編集 × 15本</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
             </ul>
-            <a href="YOUR_STRIPE_LINK_PACK15_EDIT" class="btn btn-gold" style="width:100%;justify-content:center;">今すぐ申し込む →</a>
-            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+            <a href="#" onclick="openContract('short-15');return false;" class="btn btn-gold" style="width:100%;justify-content:center;">今すぐ申し込む →</a>
+            <p class="pack-note">※ 契約同意後すぐにヒアリングシートへ進みます。</p>
           </div>
           <div class="pack-card fade-up">
             <p class="pack-name">30本パック</p>
@@ -1147,8 +1247,8 @@ footer {
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>ショート動画編集 × 30本</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
             </ul>
-            <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
-            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+            <a href="#" onclick="openContract('short-30');return false;" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
+            <p class="pack-note">※ 契約同意後すぐにヒアリングシートへ進みます。</p>
           </div>
         </div>
 
@@ -1168,8 +1268,8 @@ footer {
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>投稿代行 × 8本</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
             </ul>
-            <a href="YOUR_STRIPE_LINK_PACK10_FULL" class="btn btn-gold" style="width:100%;justify-content:center;">今すぐ申し込む →</a>
-            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+            <a href="#" onclick="openContract('set-8');return false;" class="btn btn-gold" style="width:100%;justify-content:center;">今すぐ申し込む →</a>
+            <p class="pack-note">※ 契約同意後すぐにヒアリングシートへ進みます。</p>
           </div>
           <div class="pack-card fade-up">
             <p class="pack-name">10本投稿パック</p>
@@ -1184,8 +1284,8 @@ footer {
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>投稿代行 × 10本</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
             </ul>
-            <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
-            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+            <a href="#" onclick="openContract('set-10');return false;" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
+            <p class="pack-note">※ 契約同意後すぐにヒアリングシートへ進みます。</p>
           </div>
           <div class="pack-card featured fade-up">
             <span class="pack-badge">お得</span>
@@ -1201,8 +1301,8 @@ footer {
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>投稿代行 × 15本</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
             </ul>
-            <a href="YOUR_STRIPE_LINK_PACK15_FULL" class="btn btn-gold" style="width:100%;justify-content:center;">今すぐ申し込む →</a>
-            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+            <a href="#" onclick="openContract('set-15');return false;" class="btn btn-gold" style="width:100%;justify-content:center;">今すぐ申し込む →</a>
+            <p class="pack-note">※ 契約同意後すぐにヒアリングシートへ進みます。</p>
           </div>
           <div class="pack-card fade-up">
             <p class="pack-name">30本投稿パック</p>
@@ -1217,8 +1317,8 @@ footer {
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>投稿代行 × 30本</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
             </ul>
-            <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
-            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+            <a href="#" onclick="openContract('set-30');return false;" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
+            <p class="pack-note">※ 契約同意後すぐにヒアリングシートへ進みます。</p>
           </div>
         </div>
 
@@ -1238,8 +1338,8 @@ footer {
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>YouTube長尺投稿 × 4本</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
             </ul>
-            <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
-            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+            <a href="#" onclick="openContract('mixed-std');return false;" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
+            <p class="pack-note">※ 契約同意後すぐにヒアリングシートへ進みます。</p>
           </div>
           <div class="pack-card featured fade-up">
             <span class="pack-badge">おすすめ</span>
@@ -1254,8 +1354,8 @@ footer {
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>YouTube長尺投稿 × 4本</li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>修正3回無料</li>
             </ul>
-            <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
-            <p class="pack-note">※ 申し込み後にヒアリングシートをお送りします。</p>
+            <a href="#" onclick="openContract('mixed-pre');return false;" class="btn btn-gold" style="width:100%;justify-content:center;">相談して申し込む →</a>
+            <p class="pack-note">※ 契約同意後すぐにヒアリングシートへ進みます。</p>
           </div>
         </div>
 
@@ -1309,8 +1409,8 @@ footer {
               </tbody>
             </table>
           </div>
-          <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:20px;">相談して申し込む →</a>
-          <p class="pack-note" style="margin-top:12px;">※ 申し込み後にヒアリングシートをお送りします。</p>
+          <a href="#" onclick="openContract('longplus');return false;" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:20px;">相談して申し込む →</a>
+          <p class="pack-note" style="margin-top:12px;">※ 契約同意後すぐにヒアリングシートへ進みます。</p>
         </div>
 
         <div style="margin-top:8px;padding:20px 24px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);">
@@ -1539,6 +1639,73 @@ footer {
   <p class="footer-copy">© 2025 mono.create All Rights Reserved.</p>
 </footer>
 
+<!-- ── Contract Agreement Modal ── -->
+<div class="contract-overlay" id="contractOverlay">
+  <div class="contract-box">
+    <div class="contract-header">
+      <h3>📄 業務委託契約書 — ご確認・同意</h3>
+      <button class="contract-close-btn" onclick="closeContract()">✕</button>
+    </div>
+    <div class="contract-body">
+      <p class="contract-plan-tag" id="contractPlanTag"></p>
+      <h4>ショート動画制作および運用支援 業務委託契約書</h4>
+      <h4>第1条（目的）</h4>
+      <p>甲（委託者）が運営するSNSアカウントにおける動画制作および運用支援業務を、乙（受託者：中村航汰 / mono.create）に委託することを目的とします。</p>
+      <h4>第2条（業務内容）</h4>
+      <ul>
+        <li>選択プランに基づく動画制作・編集業務</li>
+        <li>アカウント分析および市場分析レポート提出（該当プランのみ）</li>
+        <li>投稿代行業務（該当プランのみ）</li>
+      </ul>
+      <h4>第3条（委託料および支払方法）</h4>
+      <ul>
+        <li>委託料は選択プランに記載の金額とします</li>
+        <li>毎月末日までに翌月分を前払いにて指定銀行口座へお振込みください</li>
+        <li>振込手数料は甲のご負担とします</li>
+      </ul>
+      <h4>第4条（素材の提供および検収）</h4>
+      <ul>
+        <li>甲が編集素材を適時提供するものとします</li>
+        <li>完成動画の甲による確認をもって検収完了とします</li>
+        <li>甲都合の修正は1本につき3回まで無料。4回目以降は¥500/回をいただきます</li>
+        <li>乙側の誤りによる修正は回数に関わらず無料で対応します</li>
+      </ul>
+      <h4>第5条（アカウント情報の管理）</h4>
+      <ul>
+        <li>提供いただいたログイン情報は本業務以外に使用しません</li>
+        <li>投稿内容は事前に甲のご確認をいただいた上で実施します</li>
+      </ul>
+      <h4>第6条（免責事項）</h4>
+      <p>乙はSNSアルゴリズムの変化、アカウントの凍結、再生数・フォロワー数の増減に関する責任を負いません。</p>
+      <h4>第7条（著作権の帰属）</h4>
+      <p>著作権は委託料の完済時に乙から甲に移転します。ただし乙は制作実績としてポートフォリオへの掲載を行う場合があります。</p>
+      <h4>第8条（秘密保持）</h4>
+      <p>両者は相手方の機密情報を正当な理由なく第三者に漏洩してはなりません。</p>
+      <h4>第9条（契約期間および解約）</h4>
+      <p>契約期間は締結日から1ヶ月間とします。終了の7日前までにお申し出がない場合は自動更新されます。</p>
+    </div>
+    <div class="contract-footer">
+      <div class="contract-fields">
+        <div class="contract-field">
+          <label>お名前 <span>*</span></label>
+          <input type="text" id="ctrName" placeholder="山田 太郎">
+        </div>
+        <div class="contract-field">
+          <label>メールアドレス <span>*</span></label>
+          <input type="email" id="ctrEmail" placeholder="email@example.com">
+        </div>
+      </div>
+      <label class="contract-agree-row">
+        <input type="checkbox" id="ctrAgree" onchange="_updateCtrBtn()">
+        <span>上記の契約内容を全て確認し、同意します</span>
+      </label>
+      <button class="contract-submit-btn" id="ctrSubmitBtn" disabled onclick="submitContract()">
+        同意してヒアリングシートへ進む →
+      </button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ─── 設定 ──────────────────────────────────────────────
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbx5Mta1CzlD-Odanvr9dPtku2TK4PfNe0Fvq_MBHX0UypqY3DgLbZTglcenqf1drfF9vw/exec';
@@ -1634,6 +1801,76 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── Contract Modal ──────────────────────────────────────
+let _ctrPlan = '', _ctrHearing = '';
+const PLAN_MAP = {
+  'short-10':  ['ショート動画編集 10本パック（¥49,800/月）',  'hearing/short.html'],
+  'short-15':  ['ショート動画編集 15本パック（¥69,800/月）',  'hearing/short.html'],
+  'short-30':  ['ショート動画編集 30本パック（¥129,800/月）', 'hearing/short.html'],
+  'set-8':     ['SNS全対応パック 8本投稿（¥69,800/月）',      'hearing/set-short.html'],
+  'set-10':    ['SNS全対応パック 10本投稿（¥45,000/月）',     'hearing/set-short.html'],
+  'set-15':    ['SNS全対応パック 15本投稿（¥75,000/月）',     'hearing/set-short.html'],
+  'set-30':    ['SNS全対応パック 30本投稿（¥150,000/月）',    'hearing/set-short.html'],
+  'mixed-std': ['ショート×YouTube長尺 スタンダード（¥150,000/月）', 'hearing/set-long.html'],
+  'mixed-pre': ['ショート×YouTube長尺 プレミアム（¥180,000/月）',   'hearing/set-long.html'],
+  'longplus':  ['長尺動画+投稿代行パック',                    'hearing/set-long.html'],
+  'dispatch':  ['編集者派遣',                                 'hearing/dispatch.html'],
+};
+
+function openContract(planId) {
+  _ctrPlan = planId;
+  const info = PLAN_MAP[planId] || [planId, 'hearing/short.html'];
+  _ctrHearing = info[1];
+  document.getElementById('contractPlanTag').textContent = '申込プラン：' + info[0];
+  document.getElementById('ctrName').value = '';
+  document.getElementById('ctrEmail').value = '';
+  document.getElementById('ctrAgree').checked = false;
+  document.getElementById('ctrSubmitBtn').disabled = true;
+  document.getElementById('contractOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeContract() {
+  document.getElementById('contractOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function _updateCtrBtn() {
+  const n = document.getElementById('ctrName').value.trim();
+  const e = document.getElementById('ctrEmail').value.trim();
+  const a = document.getElementById('ctrAgree').checked;
+  document.getElementById('ctrSubmitBtn').disabled = !(n && e && a);
+}
+async function submitContract() {
+  const name  = document.getElementById('ctrName').value.trim();
+  const email = document.getElementById('ctrEmail').value.trim();
+  if (!name || !email || !document.getElementById('ctrAgree').checked) return;
+  const btn = document.getElementById('ctrSubmitBtn');
+  btn.disabled = true; btn.textContent = '送信中...';
+  const info = PLAN_MAP[_ctrPlan] || [_ctrPlan, 'hearing/short.html'];
+  try {
+    await fetch(GAS_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'contract', name, email,
+        plan: info[0],
+        agreedAt: new Date().toLocaleString('ja-JP'),
+        contractVer: 'v2025-05',
+      }),
+    });
+  } catch(e) { /* no-cors */ }
+  const qs = new URLSearchParams({ name, email, plan: info[0] });
+  window.location.href = info[1] + '?' + qs.toString();
+}
+document.addEventListener('DOMContentLoaded', () => {
+  ['ctrName','ctrEmail'].forEach(id => {
+    document.getElementById(id).addEventListener('input', _updateCtrBtn);
+  });
+  document.getElementById('contractOverlay').addEventListener('click', function(ev) {
+    if (ev.target === this) closeContract();
+  });
+});
+// ────────────────────────────────────────────────────────
 
 document.getElementById('contact-form').addEventListener('submit', async (e) => {
   e.preventDefault();
