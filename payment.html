@@ -215,12 +215,46 @@ footer {
 
 <main>
 
+  <!-- 支払い方式切替 -->
+  <div id="pay-type-selector" style="display:flex;gap:10px;margin-bottom:24px;">
+    <button onclick="setPayType('prepay')" id="btn-prepay"
+      style="flex:1;padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid #F59E0B;background:rgba(245,158,11,0.15);color:#F59E0B;transition:all 0.2s;">
+      ⚡ 先払い<br><span style="font-size:0.72rem;font-weight:400;opacity:0.8;">ショート動画・編集のみ</span>
+    </button>
+    <button onclick="setPayType('postpay')" id="btn-postpay"
+      style="flex:1;padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#8B9BB4;transition:all 0.2s;">
+      📋 後払い<br><span style="font-size:0.72rem;font-weight:400;opacity:0.8;">長尺動画プラン</span>
+    </button>
+  </div>
+
   <!-- 先払いバナー -->
-  <div class="prepay-banner">
+  <div class="prepay-banner" id="banner-prepay">
     <div class="prepay-banner__icon">⚠️</div>
     <div>
       <p class="prepay-banner__body">mono.createでは<strong style="color:#E8EDF5;">ご入金の確認後に編集を開始</strong>しております。<br>トラブル防止のため、必ず振込完了後に素材をご共有ください。</p>
     </div>
+  </div>
+
+  <!-- 後払いバナー -->
+  <div id="banner-postpay" style="display:none;background:linear-gradient(135deg,rgba(59,130,246,0.12),rgba(16,185,129,0.08));border:1px solid rgba(59,130,246,0.3);border-radius:14px;padding:20px 24px;display:none;align-items:center;gap:14px;margin-bottom:40px;">
+    <div style="font-size:2rem;flex-shrink:0;">📋</div>
+    <div>
+      <p style="font-size:0.95rem;font-weight:700;color:#60A5FA;margin-bottom:4px;">長尺動画プランは後払いです</p>
+      <p style="font-size:0.82rem;color:#8B9BB4;line-height:1.7;">動画の尺によって料金が変動するため、<strong style="color:#E8EDF5;">納品確認後に金額を確定してご請求</strong>します。<br>請求書をChatworkでお送りしますので、内容をご確認のうえ7日以内にお振込みください。</p>
+    </div>
+  </div>
+
+  <!-- 後払い専用 案内 -->
+  <div id="postpay-notice" style="display:none;margin-bottom:32px;background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:12px;padding:20px 24px;">
+    <p style="font-size:0.88rem;font-weight:700;color:#60A5FA;margin-bottom:10px;">📋 後払いの流れ</p>
+    <ol style="font-size:0.82rem;color:#8B9BB4;line-height:2;padding-left:18px;">
+      <li>ヒアリングシートご記入・契約同意</li>
+      <li>素材をご共有ください（先払い不要）</li>
+      <li>編集・投稿代行を実施</li>
+      <li>納品完了後、正確な金額をChatworkでご連絡</li>
+      <li>請求書受領後<strong style="color:#E8EDF5;">7日以内に</strong>下記口座へお振込み</li>
+    </ol>
+    <p style="font-size:0.78rem;color:#8B9BB4;margin-top:12px;">※ 振込完了後、下記フォームからご報告ください。</p>
   </div>
 
   <!-- 振込金額 -->
@@ -309,20 +343,27 @@ footer {
           <label class="form-label">ご契約プラン<span class="req">*</span></label>
           <select class="form-select" id="r-plan" required>
             <option value="">-- 選択してください --</option>
-            <option>ショート動画編集（単品 ¥4,000〜）</option>
-            <option>長尺動画編集（単品）</option>
-            <option>丸投げパック 10本（¥49,800）</option>
-            <option>丸投げパック 15本（¥69,800）</option>
-            <option>丸投げパック 30本（¥129,800）</option>
-            <option>SNS全対応 8本投稿パック（¥69,800）</option>
-            <option>SNS全対応 10本投稿パック（¥45,000）</option>
-            <option>SNS全対応 15本投稿パック（¥75,000）</option>
-            <option>SNS全対応 30本投稿パック（¥150,000）</option>
-            <option>ショート×YouTube長尺 スタンダード（¥150,000）</option>
-            <option>ショート×YouTube長尺 プレミアム（¥180,000）</option>
-            <option>編集コンサルティング（¥5,000/h）</option>
-            <option>編集ディレクション・外注管理</option>
-            <option>SNS運用代行</option>
+            <optgroup label="まとめて編集プラン（編集のみ）">
+              <option>まとめて編集プラン ショート動画</option>
+              <option>まとめて編集プラン 長尺動画</option>
+            </optgroup>
+            <optgroup label="投稿丸投げプラン（編集＋投稿代行）">
+              <option>投稿丸投げプラン ショート8本（¥69,800）</option>
+              <option>投稿丸投げプラン ショート10本（¥45,000）</option>
+              <option>投稿丸投げプラン ショート15本（¥75,000）</option>
+              <option>投稿丸投げプラン ショート30本（¥150,000）</option>
+              <option>投稿丸投げプラン 長尺動画（後払い）</option>
+            </optgroup>
+            <optgroup label="運用丸投げパック（企画〜分析 一括）">
+              <option>運用丸投げパック スタンダード（¥150,000）</option>
+              <option>運用丸投げパック プレミアム（¥220,000）</option>
+            </optgroup>
+            <optgroup label="単品・オプション">
+              <option>ショート動画編集（単品 ¥4,000〜）</option>
+              <option>長尺動画編集（単品 後払い）</option>
+              <option>編集コンサルティング（¥5,000/h）</option>
+            </optgroup>
+            <option>編集者派遣</option>
             <option>その他</option>
           </select>
         </div>
@@ -361,11 +402,39 @@ footer {
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbx5Mta1CzlD-Odanvr9dPtku2TK4PfNe0Fvq_MBHX0UypqY3DgLbZTglcenqf1drfF9vw/exec';
 
+// ── 先払い / 後払い 切替 ──────────────────────────────────
+function setPayType(type) {
+  const isPre = type === 'prepay';
+  // ボタンスタイル
+  document.getElementById('btn-prepay').style.cssText =
+    isPre ? 'flex:1;padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid #F59E0B;background:rgba(245,158,11,0.2);color:#F59E0B;transition:all 0.2s;'
+          : 'flex:1;padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#8B9BB4;transition:all 0.2s;';
+  document.getElementById('btn-postpay').style.cssText =
+    !isPre ? 'flex:1;padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid #60A5FA;background:rgba(59,130,246,0.15);color:#60A5FA;transition:all 0.2s;'
+           : 'flex:1;padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#8B9BB4;transition:all 0.2s;';
+  // バナー切替
+  document.getElementById('banner-prepay').style.display = isPre ? 'flex' : 'none';
+  document.getElementById('banner-postpay').style.display = isPre ? 'none' : 'flex';
+  // 先払い専用セクション（振込金額・振込先・注意事項）
+  const preOnly = document.querySelectorAll('.prepay-only');
+  preOnly.forEach(el => el.style.display = isPre ? '' : 'none');
+  // 後払いメッセージ
+  document.getElementById('postpay-notice').style.display = isPre ? 'none' : 'block';
+  // 振込金額ラベル
+  document.getElementById('amount-display').textContent = isPre ? '契約時にご確認ください' : '納品後にChatworkでご連絡します';
+}
+
 // URLパラメータからプラン・金額を反映
 (function() {
   const p = new URLSearchParams(location.search);
   const amount = p.get('amount');
   const plan   = p.get('plan');
+  const postpayPlans = ['長尺', 'set-long', 'edit-long', 'longplus', '後払い'];
+  const isPostpay = plan && postpayPlans.some(k => plan.includes(k));
+
+  // 先払い/後払いを自動判定
+  setPayType(isPostpay ? 'postpay' : 'prepay');
+
   if (amount) {
     document.getElementById('amount-display').textContent = '¥' + Number(amount).toLocaleString();
     document.getElementById('r-amount').value = '¥' + Number(amount).toLocaleString();
@@ -373,7 +442,7 @@ const GAS_URL = 'https://script.google.com/macros/s/AKfycbx5Mta1CzlD-Odanvr9dPtk
   if (plan) {
     document.getElementById('plan-display').textContent = plan;
     const sel = document.getElementById('r-plan');
-    for (let o of sel.options) { if (o.value === plan) { sel.value = plan; break; } }
+    for (let o of sel.options) { if (o.value === plan || o.text.includes(plan)) { sel.value = o.value; break; } }
   }
   // デフォルト振込日を今日に
   document.getElementById('r-date').value = new Date().toISOString().slice(0,10);
