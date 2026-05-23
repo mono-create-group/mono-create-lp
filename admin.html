@@ -342,6 +342,10 @@ tbody td { padding: 14px 16px; font-size: 0.85rem; vertical-align: top; }
         style="padding:10px 16px;border:none;background:none;color:var(--sub);font-weight:700;font-size:0.85rem;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;">
         🎬 ポートフォリオ管理
       </button>
+      <button id="tab-settings-btn" onclick="switchAdminTab('settings')"
+        style="padding:10px 16px;border:none;background:none;color:var(--sub);font-weight:700;font-size:0.85rem;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;">
+        ⚙️ 設定
+      </button>
     </div>
 
     <!-- ── 問い合わせタブ ── -->
@@ -547,6 +551,41 @@ tbody td { padding: 14px 16px; font-size: 0.85rem; vertical-align: top; }
       </div>
     </div><!-- /tab-portfolio -->
 
+    <!-- ── 設定タブ ── -->
+    <div id="tab-settings" style="display:none;max-width:480px;margin:0 auto;padding:32px 0;">
+      <h2 style="font-size:1rem;font-weight:700;margin-bottom:24px;">⚙️ 管理画面の設定</h2>
+
+      <!-- パスワード変更 -->
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:24px;">
+        <h3 style="font-size:0.9rem;font-weight:700;margin-bottom:16px;color:var(--lt);">🔑 パスワード変更</h3>
+        <div style="margin-bottom:12px;">
+          <label style="display:block;font-size:0.78rem;color:var(--sub);margin-bottom:6px;">現在のパスワード</label>
+          <input type="password" id="pw-current" placeholder="現在のパスワードを入力"
+            style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--lt);font-size:0.9rem;font-family:inherit;outline:none;">
+        </div>
+        <div style="margin-bottom:12px;">
+          <label style="display:block;font-size:0.78rem;color:var(--sub);margin-bottom:6px;">新しいパスワード</label>
+          <input type="password" id="pw-new" placeholder="新しいパスワードを入力"
+            style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--lt);font-size:0.9rem;font-family:inherit;outline:none;">
+        </div>
+        <div style="margin-bottom:16px;">
+          <label style="display:block;font-size:0.78rem;color:var(--sub);margin-bottom:6px;">新しいパスワード（確認）</label>
+          <input type="password" id="pw-confirm" placeholder="もう一度入力"
+            style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--lt);font-size:0.9rem;font-family:inherit;outline:none;">
+        </div>
+        <p id="pw-msg" style="font-size:0.8rem;margin-bottom:12px;display:none;"></p>
+        <button onclick="changePassword()"
+          style="width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:0.9rem;cursor:pointer;font-family:inherit;">
+          パスワードを変更する
+        </button>
+      </div>
+
+      <p style="font-size:0.75rem;color:var(--sub);line-height:1.7;">
+        ※ パスワードはこのブラウザのローカルストレージに保存されます。<br>
+        ※ 別のブラウザやデバイスからログインする場合は、同じパスワードを設定してください。
+      </p>
+    </div><!-- /tab-settings -->
+
   </main>
 </div>
 
@@ -569,9 +608,9 @@ tbody td { padding: 14px 16px; font-size: 0.85rem; vertical-align: top; }
 // Google Apps Script Web App URL（editor.htmlと同じURLに差し替え）
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbx5Mta1CzlD-Odanvr9dPtku2TK4PfNe0Fvq_MBHX0UypqY3DgLbZTglcenqf1drfF9vw/exec';
 
-// 管理画面パスワード（GASの ADMIN_KEY と揃えること）
-// 変更するには: このファイルとgas_backend.gsのADMIN_KEYを同じ値に
-const ADMIN_PASSWORD = 'monocreate2025';
+// 管理画面パスワード（初期値。管理画面の設定タブから変更可能）
+const DEFAULT_PASSWORD = '20180412k';
+const ADMIN_PASSWORD = localStorage.getItem('mc_admin_pw') || DEFAULT_PASSWORD;
 // ───────────────────────────────────────────────────────────────
 
 let inquiries = [];
@@ -580,7 +619,8 @@ let currentRow = null;
 // ── Auth ──
 function doLogin() {
   const val = document.getElementById('pw-input').value;
-  if (val === ADMIN_PASSWORD) {
+  const currentPw = localStorage.getItem('mc_admin_pw') || DEFAULT_PASSWORD;
+  if (val === currentPw) {
     sessionStorage.setItem('mc_admin', '1');
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
@@ -807,7 +847,7 @@ function exportCSV() {
 }
 
 // ── Tab switch ──
-const ADMIN_TABS = ['inquiries','contracts','hearings','sales','portfolio'];
+const ADMIN_TABS = ['inquiries','contracts','hearings','sales','portfolio','settings'];
 function switchAdminTab(tab) {
   ADMIN_TABS.forEach(t => {
     document.getElementById('tab-' + t).style.display = t === tab ? '' : 'none';
@@ -819,6 +859,31 @@ function switchAdminTab(tab) {
   if (tab === 'contracts') loadContracts();
   if (tab === 'hearings')  loadHearings();
   if (tab === 'sales')     loadSales();
+}
+
+// ── パスワード変更 ──
+function changePassword() {
+  const current  = document.getElementById('pw-current').value;
+  const newPw    = document.getElementById('pw-new').value;
+  const confirm  = document.getElementById('pw-confirm').value;
+  const msg      = document.getElementById('pw-msg');
+  const currentPw = localStorage.getItem('mc_admin_pw') || DEFAULT_PASSWORD;
+
+  const showMsg = (text, color) => {
+    msg.textContent = text;
+    msg.style.color = color;
+    msg.style.display = 'block';
+  };
+
+  if (current !== currentPw) { showMsg('❌ 現在のパスワードが違います。', '#EF4444'); return; }
+  if (newPw.length < 4)      { showMsg('❌ 新しいパスワードは4文字以上にしてください。', '#EF4444'); return; }
+  if (newPw !== confirm)     { showMsg('❌ 新しいパスワードが一致しません。', '#EF4444'); return; }
+
+  localStorage.setItem('mc_admin_pw', newPw);
+  document.getElementById('pw-current').value = '';
+  document.getElementById('pw-new').value = '';
+  document.getElementById('pw-confirm').value = '';
+  showMsg('✅ パスワードを変更しました。次回ログインから反映されます。', '#10B981');
 }
 
 // ── Contracts ──
