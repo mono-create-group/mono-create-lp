@@ -326,6 +326,10 @@ tbody td { padding: 14px 16px; font-size: 0.85rem; vertical-align: top; }
         style="padding:10px 16px;border:none;background:none;color:var(--lt);font-weight:700;font-size:0.85rem;border-bottom:2px solid var(--lt);cursor:pointer;font-family:inherit;">
         📩 問い合わせ管理
       </button>
+      <button id="tab-payments-btn" onclick="switchAdminTab('payments')"
+        style="padding:10px 16px;border:none;background:none;color:var(--sub);font-weight:700;font-size:0.85rem;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;">
+        💳 振込確認
+      </button>
       <button id="tab-contracts-btn" onclick="switchAdminTab('contracts')"
         style="padding:10px 16px;border:none;background:none;color:var(--sub);font-weight:700;font-size:0.85rem;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;">
         📝 契約同意記録
@@ -413,6 +417,34 @@ tbody td { padding: 14px 16px; font-size: 0.85rem; vertical-align: top; }
     </div><!-- /tab-inquiries -->
 
     <!-- ── 契約同意記録タブ ── -->
+    <!-- ── 振込確認タブ ── -->
+    <div id="tab-payments" style="display:none;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h2 style="font-size:1rem;font-weight:700;">💳 振込確認・売上自動記帳</h2>
+        <button onclick="loadPayments()" style="padding:7px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--sub);font-size:0.8rem;font-family:inherit;cursor:pointer;">更新</button>
+      </div>
+      <p style="font-size:0.78rem;color:var(--sub);margin-bottom:20px;line-height:1.7;">
+        客から振込完了報告が届いたら「承認」ボタンを押してください。承認すると自動で売上帳に記帳されます。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>報告日時</th>
+            <th>振込名義</th>
+            <th>連絡先</th>
+            <th>プラン</th>
+            <th>金額</th>
+            <th>振込日</th>
+            <th>ステータス</th>
+            <th>操作</th>
+          </tr></thead>
+          <tbody id="payments-body">
+            <tr><td colspan="8" class="table-empty"><span class="spinner"></span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /tab-payments -->
+
     <div id="tab-contracts" style="display:none;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
         <h2 style="font-size:1rem;font-weight:800;">契約同意記録</h2>
@@ -847,7 +879,7 @@ function exportCSV() {
 }
 
 // ── Tab switch ──
-const ADMIN_TABS = ['inquiries','contracts','hearings','sales','portfolio','settings'];
+const ADMIN_TABS = ['inquiries','payments','contracts','hearings','sales','portfolio','settings'];
 function switchAdminTab(tab) {
   ADMIN_TABS.forEach(t => {
     document.getElementById('tab-' + t).style.display = t === tab ? '' : 'none';
@@ -856,9 +888,80 @@ function switchAdminTab(tab) {
     btn.style.borderBottom = t === tab ? '2px solid var(--lt)' : '2px solid transparent';
   });
   if (tab === 'portfolio') loadPortfolioAdmin();
+  if (tab === 'payments')  loadPayments();
   if (tab === 'contracts') loadContracts();
   if (tab === 'hearings')  loadHearings();
   if (tab === 'sales')     loadSales();
+}
+
+// ── 振込確認 ──────────────────────────────────────────────────
+let payments = [];
+async function loadPayments() {
+  document.getElementById('payments-body').innerHTML =
+    '<tr><td colspan="8" class="table-empty"><span class="spinner"></span></td></tr>';
+  try {
+    const res  = await fetch(`${GAS_URL}?action=payments&key=${encodeURIComponent(localStorage.getItem('mc_admin_pw') || DEFAULT_PASSWORD)}`);
+    const json = await res.json();
+    payments   = json.data || [];
+    renderPayments();
+  } catch(e) {
+    document.getElementById('payments-body').innerHTML =
+      '<tr><td colspan="8" class="table-empty">読み込みに失敗しました。</td></tr>';
+  }
+}
+
+function renderPayments() {
+  const el = document.getElementById('payments-body');
+  if (!payments.length) {
+    el.innerHTML = '<tr><td colspan="8" class="table-empty">振込報告はまだありません。</td></tr>';
+    return;
+  }
+  el.innerHTML = payments.map(p => {
+    const isPending  = p.status === '入金確認待ち';
+    const statusColor = isPending ? '#F59E0B' : '#10B981';
+    const btn = isPending
+      ? `<button onclick="approvePayment(${p.row})"
+           style="padding:6px 14px;background:#10B981;color:#fff;border:none;border-radius:6px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit;">
+           ✅ 承認・記帳
+         </button>`
+      : `<span style="font-size:0.75rem;color:#10B981;font-weight:700;">記帳済み</span>`;
+    return `<tr>
+      <td>${p.date}</td>
+      <td style="font-weight:600;">${p.name}</td>
+      <td>${p.contact}</td>
+      <td>${p.plan}</td>
+      <td style="font-weight:700;color:var(--gold);">${p.amount}</td>
+      <td>${p.payDate}</td>
+      <td style="color:${statusColor};font-weight:700;">${p.status}</td>
+      <td>${btn}</td>
+    </tr>`;
+  }).join('');
+}
+
+async function approvePayment(row) {
+  if (!confirm('この振込を承認して売上帳に自動記帳しますか？')) return;
+  const btn = event.target;
+  btn.disabled = true;
+  btn.textContent = '処理中...';
+  try {
+    const pw  = localStorage.getItem('mc_admin_pw') || DEFAULT_PASSWORD;
+    const res = await fetch(`${GAS_URL}?action=approve_payment&key=${encodeURIComponent(pw)}&row=${row}`);
+    const json = await res.json();
+    if (json.error === 'already_approved') {
+      alert('この振込はすでに承認済みです。');
+    } else if (json.success) {
+      alert(`✅ 承認・記帳しました。\n売上金額（税込）：¥${Number(json.taxInc).toLocaleString()}`);
+      loadPayments(); // 一覧更新
+    } else {
+      alert('エラーが発生しました。');
+      btn.disabled = false;
+      btn.textContent = '✅ 承認・記帳';
+    }
+  } catch(e) {
+    alert('通信エラーが発生しました。');
+    btn.disabled = false;
+    btn.textContent = '✅ 承認・記帳';
+  }
 }
 
 // ── パスワード変更 ──
