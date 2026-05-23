@@ -215,18 +215,6 @@ footer {
 
 <main>
 
-  <!-- 支払い方式切替 -->
-  <div id="pay-type-selector" style="display:flex;gap:10px;margin-bottom:24px;">
-    <button onclick="setPayType('prepay')" id="btn-prepay"
-      style="flex:1;padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid #F59E0B;background:rgba(245,158,11,0.15);color:#F59E0B;transition:all 0.2s;">
-      ⚡ 先払い<br><span style="font-size:0.72rem;font-weight:400;opacity:0.8;">ショート動画・編集のみ</span>
-    </button>
-    <button onclick="setPayType('postpay')" id="btn-postpay"
-      style="flex:1;padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#8B9BB4;transition:all 0.2s;">
-      📋 後払い<br><span style="font-size:0.72rem;font-weight:400;opacity:0.8;">長尺動画プラン</span>
-    </button>
-  </div>
-
   <!-- 先払いバナー -->
   <div class="prepay-banner" id="banner-prepay">
     <div class="prepay-banner__icon">⚠️</div>
@@ -402,23 +390,14 @@ footer {
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbx5Mta1CzlD-Odanvr9dPtku2TK4PfNe0Fvq_MBHX0UypqY3DgLbZTglcenqf1drfF9vw/exec';
 
-// ── 先払い / 後払い 切替 ──────────────────────────────────
+// ── 先払い / 後払い 自動切替（手動選択不可）──────────────
+// 長尺動画プランが含まれている場合のみ後払い。それ以外は常に先払い。
 function setPayType(type) {
   const isPre = type === 'prepay';
-  // ボタンスタイル
-  document.getElementById('btn-prepay').style.cssText =
-    isPre ? 'flex:1;padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid #F59E0B;background:rgba(245,158,11,0.2);color:#F59E0B;transition:all 0.2s;'
-          : 'flex:1;padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#8B9BB4;transition:all 0.2s;';
-  document.getElementById('btn-postpay').style.cssText =
-    !isPre ? 'flex:1;padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid #60A5FA;background:rgba(59,130,246,0.15);color:#60A5FA;transition:all 0.2s;'
-           : 'flex:1;padding:14px;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;border:2px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#8B9BB4;transition:all 0.2s;';
   // バナー切替
   document.getElementById('banner-prepay').style.display = isPre ? 'flex' : 'none';
   document.getElementById('banner-postpay').style.display = isPre ? 'none' : 'flex';
-  // 先払い専用セクション（振込金額・振込先・注意事項）
-  const preOnly = document.querySelectorAll('.prepay-only');
-  preOnly.forEach(el => el.style.display = isPre ? '' : 'none');
-  // 後払いメッセージ
+  // 後払いフロー案内
   document.getElementById('postpay-notice').style.display = isPre ? 'none' : 'block';
   // 振込金額ラベル
   document.getElementById('amount-display').textContent = isPre ? '契約時にご確認ください' : '納品後にChatworkでご連絡します';
